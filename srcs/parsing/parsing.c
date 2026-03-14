@@ -6,7 +6,7 @@
 /*   By: aandreo <aandreo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/07 10:07:24 by aandreo           #+#    #+#             */
-/*   Updated: 2026/03/14 09:24:44 by aandreo          ###   ########.fr       */
+/*   Updated: 2026/03/14 15:20:18 by aandreo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,6 +111,7 @@ bool	parse_map(char **map, t_game *game, char **av)
 	free_map(mapcpy);
 	return (true);
 }
+
 
 
 
