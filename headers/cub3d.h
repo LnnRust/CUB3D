@@ -31,6 +31,14 @@ typedef struct s_sprite
 	int		y;
 }	t_sprite;
 
+// enum to track .cub file parsing status
+typedef enum e_status
+{
+	BEFORE_CONTENT,
+	IN_CONFIG,
+	IN_MAP,
+}	e_status;
+
 /* Everything about the parsed map */
 typedef struct s_map
 {
