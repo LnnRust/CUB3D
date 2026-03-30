@@ -68,7 +68,7 @@ int main(void)
 		return (1);
 	if(!init_game(&game))
 		return(ft_putstr_fd("Init error\n", 2), 1);
-	if(!//parse func(av[1] ,&game))
-		return (free_game(&game), 1);
+	/*if(!parse func(av[1] ,&game))
+		return (free_game(&game), 1);*/
 	return (0);
 }
