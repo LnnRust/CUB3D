@@ -6,7 +6,7 @@
 /*   By: aandreo <aandreo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/26 00:51:20 by aandreo           #+#    #+#             */
-/*   Updated: 2026/02/26 00:58:18 by aandreo          ###   ########.fr       */
+/*   Updated: 2026/03/30 14:13:47 by aandreo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,6 @@ char		*ft_strdup(const char *s);
 
 //partie 2
 
-char		*ft_substr(char const *s, unsigned int start, size_t len);
 char		*ft_strjoin(char const *s1, char const *s2);
 char		*ft_strtrim(char const *s1, char const *set);
 char		*ft_itoa(int n);
