@@ -6,7 +6,7 @@
 /*   By: aandreo <aandreo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/07 10:08:12 by aandreo           #+#    #+#             */
-/*   Updated: 2026/03/14 09:20:35 by aandreo          ###   ########.fr       */
+/*   Updated: 2026/03/31 17:51:46 by aandreo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static bool	is_border(char **map, int x, int y)
 {
 	if(x < 0 || y < 0)
 		return true;
-	if(x >= ft_strlen(map[y]))
+	if((size_t)x >= ft_strlen(map[y]))
 		return true;
 	if(!map[y] || map[y][x] == ' ' || map[y][x] == '\t')
 		return true;

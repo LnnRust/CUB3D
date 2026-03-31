@@ -6,7 +6,7 @@
 /*   By: aandreo <aandreo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/07 10:07:24 by aandreo           #+#    #+#             */
-/*   Updated: 2026/03/14 15:20:18 by aandreo          ###   ########.fr       */
+/*   Updated: 2026/03/31 18:12:02 by aandreo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,12 @@ static char	**copy_map(char **map)
 	return (tmp);
 }
 
+// need to fill this -> extract only the map lines and return char **map
+char **extract_map()
+{
+
+}
+
 bool	parse_map(char **map, t_game *game, char **av)
 {
 	char **mapcpy;
@@ -104,11 +110,11 @@ bool	parse_map(char **map, t_game *game, char **av)
 	return (ft_putstr_fd("Wrong player count\n", 2), false);
 	if(map_has_other_chars(map))
 	return (false);
-	mapcpy = copy_map(map);
-	flood_fill(mapcpy, game->player->x, game->player->y);
-	if(!check_floodfill(mapcpy))
-		return (ft_putstr_fd("Flood fill error\n", 2), free_map(mapcpy), false);
-	free_map(mapcpy);
+
+	//flood_fill(mapcpy, game->player->x, game->player->y);
+	//if(!check_floodfill(mapcpy))
+		//return (ft_putstr_fd("Flood fill error\n", 2), free_map(mapcpy), false);
+	//free_map(mapcpy);
 	return (true);
 }
 

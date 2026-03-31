@@ -6,7 +6,7 @@
 /*   By: aandreo <aandreo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/07 12:29:20 by aandreo           #+#    #+#             */
-/*   Updated: 2026/03/14 09:21:49 by aandreo          ###   ########.fr       */
+/*   Updated: 2026/03/31 18:10:18 by aandreo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,4 +107,14 @@ char	*ft_strjoin(const char *s1, const char *s2)
 	ft_strcat(result, s1);
 	ft_strcat(result, s2);
 	return (result);
+}
+
+bool	is_xpm_file(char *line)
+{
+	int len;
+
+	len = ft_strlen(line);
+	if(ft_strncmp(line[len - 4], ".xpm", 4) != 0)
+		return (false);
+	return true;
 }
