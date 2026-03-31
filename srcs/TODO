@@ -1,0 +1,6 @@
+Need to figure out a way to do the parsing -> 3 steps
+Find a way to extract only the map from the file in order to flood_fill
+
+-> in parse function, use enum to track status
+-> if any maps character is read, enum = IN_MAP -> check configs(if all textures/colors are good)
+-> then if IN_MAP && any char not accepted in map, error parsing;
