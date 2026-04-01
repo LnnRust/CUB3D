@@ -6,7 +6,7 @@
 /*   By: aandreo <aandreo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/14 13:32:48 by aandreo           #+#    #+#             */
-/*   Updated: 2026/03/30 15:06:42 by aandreo          ###   ########.fr       */
+/*   Updated: 2026/03/31 18:42:38 by aandreo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,4 +47,14 @@ char *get_texture_path(char **map, char *texture)
 		i++;
 	}
 	return (NULL);
+}
+
+bool	parse_texture_line()
+{
+
+}
+
+bool	parse_color_line()
+{
+
 }

@@ -74,5 +74,7 @@ void	flood_fill(char **map, int x, int y);
 bool	check_floodfill(char **map);
 void	set_playerpos(char **map, t_game *game);
 void	set_doorpos(char **map, t_game *game);
+void 	free_game(t_game *game);
 void	free_map(char **map);
 char	**extract_file_content(char *map_filename);
+char	*get_texture_path(char **map, char *texture);
