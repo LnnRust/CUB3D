@@ -78,3 +78,4 @@ void 	free_game(t_game *game);
 void	free_map(char **map);
 char	**extract_file_content(char *map_filename);
 char	*get_texture_path(char **map, char *texture);
+bool	is_xpm_file(char *line);
