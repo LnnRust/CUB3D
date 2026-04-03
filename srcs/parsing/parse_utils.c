@@ -6,7 +6,7 @@
 /*   By: aandreo <aandreo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/07 12:29:20 by aandreo           #+#    #+#             */
-/*   Updated: 2026/03/31 18:57:27 by aandreo          ###   ########.fr       */
+/*   Updated: 2026/04/03 22:54:15 by aandreo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,29 +92,12 @@ void	set_doorpos(char **map, t_game *game)
 	}
 }
 
-char	*ft_strjoin(const char *s1, const char *s2)
-{
-	char	*result;
-
-	if (s2 == NULL)
-		return (NULL);
-	if (s1 == NULL)
-		return (ft_strdup(s2));
-	result = malloc(ft_strlen(s1) + ft_strlen(s2) + 1);
-	if (result == NULL)
-		return (NULL);
-	result[0] = '\0';
-	ft_strcat(result, s1);
-	ft_strcat(result, s2);
-	return (result);
-}
-
 bool	is_xpm_file(char *line)
 {
 	int len;
 
 	len = ft_strlen(line);
-	if(ft_strncmp(line[len - 4], ".xpm", 4) != 0)
+	if(ft_strncmp(&line[len - 4], ".xpm", 4) != 0)
 		return (false);
 	return true;
 }

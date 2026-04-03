@@ -6,7 +6,7 @@
 /*   By: aandreo <aandreo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/14 13:32:48 by aandreo           #+#    #+#             */
-/*   Updated: 2026/04/03 22:45:26 by aandreo          ###   ########.fr       */
+/*   Updated: 2026/04/03 22:48:29 by aandreo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,13 +51,13 @@ char *get_texture_path(char **map, char *texture)
 
 static int	get_texture_index(char *line, int i)
 {
-	if (strncmp(line[i], "NO", 2) == 0)
+	if (strncmp(&line[i], "NO", 2) == 0)
 		return (TEX_NO);
-	if (strncmp(line[i], "SO", 2) == 0)
+	if (strncmp(&line[i], "SO", 2) == 0)
 		return (TEX_SO);
-	if (strncmp(line[i], "WE", 2) == 0)
+	if (strncmp(&line[i], "WE", 2) == 0)
 		return (TEX_WE);
-	if (strncmp(line[i], "EA", 2) == 0)
+	if (strncmp(&line[i], "EA", 2) == 0)
 		return (TEX_EA);
 	return (-1);
 }
@@ -112,25 +112,24 @@ bool	parse_texture_line(char *line, t_map *map)
 	return (true);
 }
 
-bool	parse_color_line(char *line, t_map *map)
-{
-	int i;
-	int k;
+//bool	parse_color_line(char *line, t_map *map)
+//{
+//	int i;
 
-	i = 0;
-	i = skip_whitespaces(line, 0);
-	if(line[i] != 'F' && line[i] != 'C')
-		return (ft_putstr_fd("Error: wrong color format\n", 2), false);
-	if(line[i] == 'F' && map->floor_color[0] != -1)
-		return (ft_putstr_fd("Error: Duplicate floor color\n", 2), false);
-	if(line[i] == 'C' && map->ceil_color[0] != -1)
-		return (ft_putstr_fd("Error: Duplicate ceiling color\n", 2), false);
-	if(line[i + 1] != ' ' && line[i + 1] != '\t')
-		return (ft_putstr_fd("Error: wrong color format\n", 2), false);
-	i = skip_whitespaces(line, i + 1);
-	while(line[i])
-	{
+//	i = 0;
+//	i = skip_whitespaces(line, 0);
+//	if(line[i] != 'F' && line[i] != 'C')
+//		return (ft_putstr_fd("Error: wrong color format\n", 2), false);
+//	if(line[i] == 'F' && map->floor_color[0] != -1)
+//		return (ft_putstr_fd("Error: Duplicate floor color\n", 2), false);
+//	if(line[i] == 'C' && map->ceil_color[0] != -1)
+//		return (ft_putstr_fd("Error: Duplicate ceiling color\n", 2), false);
+//	if(line[i + 1] != ' ' && line[i + 1] != '\t')
+//		return (ft_putstr_fd("Error: wrong color format\n", 2), false);
+//	i = skip_whitespaces(line, i + 1);
+//	while(line[i])
+//	{
 
-	}
+//	}
 
-}
+//}
