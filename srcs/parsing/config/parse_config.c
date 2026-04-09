@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse_getters.c                                    :+:      :+:    :+:   */
+/*   parse_config.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aandreo <aandreo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/14 13:32:48 by aandreo           #+#    #+#             */
-/*   Updated: 2026/04/10 01:25:19 by aandreo          ###   ########.fr       */
+/*   Updated: 2026/04/10 01:36:58 by aandreo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,54 +19,6 @@ size_t find_len(char *path, size_t j)
 		j++;
 	}
 	return (j);
-}
-
-char *get_texture_path(char **map, char *texture)
-{
-	int i;
-	int k;
-	size_t j;
-	char *ret;
-
-	i = 0;
-	while (map[i])
-	{
-		if (ft_strncmp(map[i], texture, 2) == 0)
-		{
-			j = find_len(map[i], 4);
-			ret = malloc(j + 1);
-			if (!ret)
-				return (NULL);
-			k = 0;
-			j = 4;
-			while (map[i][j])
-				ret[k++] = map[i][j++];
-			ret[k] = '\0';
-			return (ret);
-		}
-		i++;
-	}
-	return (NULL);
-}
-
-static int	get_texture_index(char *line, int i)
-{
-	if (strncmp(&line[i], "NO", 2) == 0)
-		return (TEX_NO);
-	if (strncmp(&line[i], "SO", 2) == 0)
-		return (TEX_SO);
-	if (strncmp(&line[i], "WE", 2) == 0)
-		return (TEX_WE);
-	if (strncmp(&line[i], "EA", 2) == 0)
-		return (TEX_EA);
-	return (-1);
-}
-
-static int skip_whitespaces(char *line, int i)
-{
-	while(line[i] == ' ' || line[i] == '\t')
-		i++;
-	return (i);
 }
 
 static void	trim_path(char *line)
@@ -111,6 +63,7 @@ bool	parse_texture_line(char *line, t_map *map)
 	return (map->tex_path[index] = path, true);
 }
 
+// extracts color code (255,250,200) and converts it to int -> fill map->ceil/floor tab
 bool	extract_rgb_code(t_map *map, char *line, int i, char code)
 {
 	char **dest;
@@ -143,20 +96,7 @@ bool	extract_rgb_code(t_map *map, char *line, int i, char code)
 	return (free_tab(dest), true);
 }
 
-static bool	fill_ceil_color(char *line, t_map *map, int i)
-{
-	if(!extract_rgb_code(map, line, i, 'C'))
-		return (ft_putstr_fd("Ceiling color error\n", 2), false);
-	return(true);
-}
-
-static bool	fill_floor_color(char *line, t_map *map, int i)
-{
-	if(!extract_rgb_code(map, line, i, 'F'))
-		return (ft_putstr_fd("Floor color error\n", 2), false);
-	return(true);
-}
-
+// check for all error conditions about color codes, then calls good helper to fill struct
 bool	parse_color_line(char *line, t_map *map)
 {
 	int i;
