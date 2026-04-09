@@ -6,7 +6,7 @@
 /*   By: aandreo <aandreo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/07 10:07:24 by aandreo           #+#    #+#             */
-/*   Updated: 2026/03/31 18:12:02 by aandreo          ###   ########.fr       */
+/*   Updated: 2026/04/08 22:47:33 by aandreo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ static char	**copy_map(char **map)
 // need to fill this -> extract only the map lines and return char **map
 char **extract_map()
 {
-
+	
 }
 
 bool	parse_map(char **map, t_game *game, char **av)
