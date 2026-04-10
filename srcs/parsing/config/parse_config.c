@@ -6,7 +6,7 @@
 /*   By: aandreo <aandreo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/14 13:32:48 by aandreo           #+#    #+#             */
-/*   Updated: 2026/04/10 22:38:27 by aandreo          ###   ########.fr       */
+/*   Updated: 2026/04/10 23:29:15 by aandreo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,37 @@ bool	parse_texture_line(char *line, t_map *map)
 	return (map->tex_path[index] = path, true);
 }
 
+//check syntax for case like 200,,200,200 or 200, 2 0,20
+static bool	is_valid_rgb_syntax(char *line)
+{
+	int	i;
+	int	code;
+
+	i = 0;
+	code = 0;
+	while (code < 3)
+	{
+		while (line[i] == ' ' || line[i] == '\t')
+			i++;
+		if (!ft_isdigit(line[i]))
+			return (false);
+		while (ft_isdigit(line[i]))
+			i++;
+		while (line[i] == ' ' || line[i] == '\t')
+			i++;
+		if (code < 2)
+		{
+			if (line[i] != ',')
+				return (false);
+			i++;
+		}
+		code++;
+	}
+	while (line[i] == ' ' || line[i] == '\t')
+		i++;
+	return (line[i] == '\0');
+}
+
 // extracts color code (255,250,200) and converts it to int -> fill map->ceil/floor tab
 bool	extract_rgb_code(t_map *map, char *line, int i, char code)
 {
@@ -71,6 +102,8 @@ bool	extract_rgb_code(t_map *map, char *line, int i, char code)
 	int k;
 
 	j = 0;
+	if (!is_valid_rgb_syntax(&line[i]))
+		return (false);
 	dest = ft_split(&line[i], ',');
 	if(!dest || dest[3])
 		return (free_tab(dest), false);
