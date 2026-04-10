@@ -6,11 +6,11 @@
 /*   By: aandreo <aandreo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/10 01:30:52 by aandreo           #+#    #+#             */
-/*   Updated: 2026/04/10 01:31:24 by aandreo          ###   ########.fr       */
+/*   Updated: 2026/04/10 22:38:27 by aandreo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../headers/cub3d.h"
+#include "cub3d.h"
 
 void	set_doorpos(char **map, t_game *game)
 {
@@ -26,10 +26,10 @@ void	set_doorpos(char **map, t_game *game)
 		return ;
 	i = 0;
 	k = 0;
-	while(map[i])
+	while(map[i++])
 	{
 		j = 0;
-		while(map[i][j])
+		while(map[i][j++])
 		{
 			if(map[i][j] == 'D')
 			{
@@ -38,9 +38,7 @@ void	set_doorpos(char **map, t_game *game)
 				game->map->doors[k].open = false;
 				k++;
 			}
-			j++;
 		}
-		i++;
 	}
 }
 

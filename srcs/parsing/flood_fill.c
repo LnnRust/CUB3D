@@ -6,11 +6,11 @@
 /*   By: aandreo <aandreo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/07 10:08:12 by aandreo           #+#    #+#             */
-/*   Updated: 2026/03/31 17:51:46 by aandreo          ###   ########.fr       */
+/*   Updated: 2026/04/10 22:38:27 by aandreo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../headers/cub3d.h"
+#include "cub3d.h"
 
 void	free_map(char **map)
 {

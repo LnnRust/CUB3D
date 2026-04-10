@@ -6,11 +6,11 @@
 /*   By: aandreo <aandreo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/07 12:29:20 by aandreo           #+#    #+#             */
-/*   Updated: 2026/04/10 01:32:20 by aandreo          ###   ########.fr       */
+/*   Updated: 2026/04/10 22:40:10 by aandreo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../headers/cub3d.h"
+#include "cub3d.h"
 
 int skip_whitespaces(char *line, int i)
 {
@@ -45,13 +45,21 @@ int	count_doors(char **map)
 
 char	**copy_map(char **map)
 {
-	int i;
-	char **tmp;
+	int		i;
+	char	**tmp;
 
 	i = 0;
-	while(map[i])
+	while (map[i])
+		i++;
+	tmp = malloc(sizeof(char *) * (i + 1));
+	if (!tmp)
+		return (NULL);
+	i = 0;
+	while (map[i])
 	{
-		tmp[i] = ft_strjoin(tmp[i], map[i]);
+		tmp[i] = ft_strdup(map[i]);
+		if (!tmp[i])
+			return (free_tab(tmp), NULL);
 		i++;
 	}
 	tmp[i] = NULL;

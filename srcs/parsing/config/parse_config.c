@@ -6,11 +6,11 @@
 /*   By: aandreo <aandreo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/14 13:32:48 by aandreo           #+#    #+#             */
-/*   Updated: 2026/04/10 01:36:58 by aandreo          ###   ########.fr       */
+/*   Updated: 2026/04/10 22:38:27 by aandreo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../headers/cub3d.h"
+#include "cub3d.h"
 
 size_t find_len(char *path, size_t j)
 {

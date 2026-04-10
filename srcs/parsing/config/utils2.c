@@ -6,11 +6,11 @@
 /*   By: aandreo <aandreo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/10 01:33:16 by aandreo           #+#    #+#             */
-/*   Updated: 2026/04/10 01:35:34 by aandreo          ###   ########.fr       */
+/*   Updated: 2026/04/10 22:38:27 by aandreo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../headers/cub3d.h"
+#include "cub3d.h"
 
 bool	fill_ceil_color(char *line, t_map *map, int i)
 {
