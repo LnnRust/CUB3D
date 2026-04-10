@@ -6,7 +6,7 @@
 #    By: aandreo <aandreo@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/03/30 14:11:11 by aandreo           #+#    #+#              #
-#    Updated: 2026/04/03 22:48:50 by aandreo          ###   ########.fr        #
+#    Updated: 2026/04/10 22:40:12 by aandreo          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,9 +25,11 @@ LDFLAGS		= -L$(LIBFT_DIR) -lft
 
 SRCS		= srcs/main.c \
 			  srcs/parsing/read_file.c \
-			  srcs/parsing/parse_getters.c \
 			  srcs/parsing/flood_fill.c \
-			  srcs/parsing/parse_utils.c \
+			  srcs/parsing/config/parse_config.c \
+			  srcs/parsing/config/utils2.c \
+			  srcs/parsing/utils/utils.c \
+			  srcs/parsing/utils/setters.c \
 
 GNL_SRCS	= libft/get_next_line.c \
 			  libft/get_next_line_utils.c
