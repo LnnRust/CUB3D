@@ -6,7 +6,7 @@
 /*   By: aandreo <aandreo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/10 01:30:52 by aandreo           #+#    #+#             */
-/*   Updated: 2026/04/10 22:38:27 by aandreo          ###   ########.fr       */
+/*   Updated: 2026/04/13 17:19:57 by aandreo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,10 @@ void	set_doorpos(char **map, t_game *game)
 		return ;
 	i = 0;
 	k = 0;
-	while(map[i++])
+	while(map[i])
 	{
 		j = 0;
-		while(map[i][j++])
+		while(map[i][j])
 		{
 			if(map[i][j] == 'D')
 			{
@@ -38,7 +38,9 @@ void	set_doorpos(char **map, t_game *game)
 				game->map->doors[k].open = false;
 				k++;
 			}
+			j++;
 		}
+		i++;
 	}
 }
 

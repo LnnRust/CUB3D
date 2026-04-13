@@ -37,6 +37,7 @@ typedef enum e_status
 	BEFORE_CONTENT,
 	IN_CONFIG,
 	IN_MAP,
+	MAP_ENDED,
 }	e_status;
 
 /* Everything about the parsed map */

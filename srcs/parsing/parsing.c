@@ -6,7 +6,7 @@
 /*   By: aandreo <aandreo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/07 10:07:24 by aandreo           #+#    #+#             */
-/*   Updated: 2026/04/10 22:38:27 by aandreo          ###   ########.fr       */
+/*   Updated: 2026/04/13 17:17:37 by aandreo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,10 +79,37 @@ static bool	check_player_count(char **map)
 	return true;
 }
 
-// need to fill this -> extract only the map lines and return char **map
-char **extract_map()
+e_status get_state(char *content, int i, int j, e_status state)
 {
 
+
+}
+
+// need to fill this -> extract only the map lines and return char **map
+char **extract_map(char **content)
+{
+	e_status state;
+	char	**map;
+	int		i;
+	int		j;
+	int k;
+	state = BEFORE_CONTENT;
+	i = 0;
+	k = 0;
+	map = malloc(sizeof(char **) * len_tab(content) + 1);
+	while(content[i])
+	{
+		j = skip_whitespaces(content[i], 0);
+		state = get_state(content[i], i, j, state);
+		if(IN_MAP && is_map_char(content[i][j]))
+		{
+			map[k] = ft_strdup(content[i]);
+			k++;
+		}
+		i++;
+	}
+	map[k] = 'NULL';
+	return (map);
 }
 
 bool	parse_map(char **map, t_game *game, char **av)

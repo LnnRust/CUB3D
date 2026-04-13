@@ -6,7 +6,7 @@
 /*   By: aandreo <aandreo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/30 15:01:22 by aandreo           #+#    #+#             */
-/*   Updated: 2026/04/03 22:39:46 by aandreo          ###   ########.fr       */
+/*   Updated: 2026/04/10 23:28:44 by aandreo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,19 +72,23 @@ void free_game(t_game *game)
 
 int main(int ac, char **av)
 {
-	if(ac == 2)
-	{
-		t_game *game;
-		game = malloc(sizeof(t_game));
-		if (!game)
-			return (1);
-		if(init_game(game) == false)
-			return (1);
-		char **test = extract_file_content(av[1]);
-		char *tmp = get_texture_path(test, "NO");
-		printf("%s", tmp);
-		return (0);
-	}
-	printf("Wrong args: Valid args -> ./cub3d map.cub\n");
+	(void)av;
+	(void)ac;
+	char *test = "F 200,150, 20";
+	t_game *game;
+	game = malloc(sizeof(t_game));
+	if (!game)
+		return (1);
+	if(init_game(game) == false)
+		return (1);
+	//char **test = extract_file_content(av[1]);
+	//char *tmp = get_texture_path(test, "NO");
+	//printf("%s", tmp);
+	if(!parse_color_line(test, game->map))
+		return (printf("Error"), 1);
+	printf("%d\n", game->map->floor_color[0]);
+	printf("%d\n", game->map->floor_color[1]);
+	printf("%d\n", game->map->floor_color[2]);
+	return (0);
 	return (0);
 }
