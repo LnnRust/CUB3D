@@ -6,7 +6,7 @@
 /*   By: aandreo <aandreo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/14 13:32:48 by aandreo           #+#    #+#             */
-/*   Updated: 2026/04/10 23:29:15 by aandreo          ###   ########.fr       */
+/*   Updated: 2026/04/13 05:20:33 by aandreo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,11 +149,10 @@ bool	parse_color_line(char *line, t_map *map)
 	i = skip_whitespaces(line, i + 1);
 	if(line[j] == 'F')
 	{
-		if(!fill_floor_color(line, map, i))
-			return (false);
-	}
+		if(!extract_rgb_code(map, line, i, 'F'))
+			return (ft_putstr_fd("Floor color error\n", 2), false);	}
 	else
-		if(!fill_ceil_color(line, map, i))
-			return (false);
+		if(!extract_rgb_code(map, line, i, 'C'))
+			return (ft_putstr_fd("Ceil color error\n", 2), false);
 	return (true);
 }

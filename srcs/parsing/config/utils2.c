@@ -6,25 +6,11 @@
 /*   By: aandreo <aandreo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/10 01:33:16 by aandreo           #+#    #+#             */
-/*   Updated: 2026/04/10 22:38:27 by aandreo          ###   ########.fr       */
+/*   Updated: 2026/04/13 05:19:49 by aandreo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-bool	fill_ceil_color(char *line, t_map *map, int i)
-{
-	if(!extract_rgb_code(map, line, i, 'C'))
-		return (ft_putstr_fd("Ceiling color error\n", 2), false);
-	return(true);
-}
-
-bool	fill_floor_color(char *line, t_map *map, int i)
-{
-	if(!extract_rgb_code(map, line, i, 'F'))
-		return (ft_putstr_fd("Floor color error\n", 2), false);
-	return(true);
-}
 
 int	get_texture_index(char *line, int i)
 {
