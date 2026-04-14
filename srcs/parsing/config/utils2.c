@@ -52,3 +52,22 @@ char *get_texture_path(char **map, char *texture)
 	}
 	return (NULL);
 }
+
+bool	is_config_line(char *line)
+{
+    int	i;
+
+    i = skip_whitespaces(line, 0);
+    if (line[i] == '\0')
+        return (false);
+    if ((ft_strncmp(&line[i], "NO", 2) == 0
+            || ft_strncmp(&line[i], "SO", 2) == 0
+            || ft_strncmp(&line[i], "WE", 2) == 0
+            || ft_strncmp(&line[i], "EA", 2) == 0)
+        && (line[i + 2] == ' ' || line[i + 2] == '\t'))
+        return (true);
+    if ((line[i] == 'F' || line[i] == 'C')
+        && (line[i + 1] == ' ' || line[i + 1] == '\t'))
+        return (true);
+    return (false);
+}
