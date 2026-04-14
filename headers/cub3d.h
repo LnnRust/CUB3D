@@ -38,6 +38,7 @@ typedef enum e_status
 	IN_CONFIG,
 	IN_MAP,
 	MAP_ENDED,
+	ERROR,
 }	e_status;
 
 /* Everything about the parsed map */
@@ -91,3 +92,4 @@ bool	parse_color_line(char *line, t_map *map);
 bool	extract_rgb_code(t_map *map, char *line, int i, char code);
 bool	fill_ceil_color(char *line, t_map *map, int i);
 bool	fill_floor_color(char *line, t_map *map, int i);
+bool	is_config_line(char *line);
