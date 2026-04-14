@@ -6,7 +6,7 @@
 /*   By: aandreo <aandreo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/10 01:33:16 by aandreo           #+#    #+#             */
-/*   Updated: 2026/04/13 05:19:49 by aandreo          ###   ########.fr       */
+/*   Updated: 2026/04/14 16:22:37 by aandreo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,19 +55,19 @@ char *get_texture_path(char **map, char *texture)
 
 bool	is_config_line(char *line)
 {
-    int	i;
+	int	i;
 
-    i = skip_whitespaces(line, 0);
-    if (line[i] == '\0')
-        return (false);
-    if ((ft_strncmp(&line[i], "NO", 2) == 0
-            || ft_strncmp(&line[i], "SO", 2) == 0
-            || ft_strncmp(&line[i], "WE", 2) == 0
-            || ft_strncmp(&line[i], "EA", 2) == 0)
-        && (line[i + 2] == ' ' || line[i + 2] == '\t'))
-        return (true);
-    if ((line[i] == 'F' || line[i] == 'C')
-        && (line[i + 1] == ' ' || line[i + 1] == '\t'))
-        return (true);
-    return (false);
+	i = skip_whitespaces(line, 0);
+	if (line[i] == '\0')
+		return (false);
+	if ((ft_strncmp(&line[i], "NO", 2) == 0
+			|| ft_strncmp(&line[i], "SO", 2) == 0
+			|| ft_strncmp(&line[i], "WE", 2) == 0
+			|| ft_strncmp(&line[i], "EA", 2) == 0)
+		&& (line[i + 2] == ' ' || line[i + 2] == '\t'))
+		return (true);
+	if ((line[i] == 'F' || line[i] == 'C')
+		&& (line[i + 1] == ' ' || line[i + 1] == '\t'))
+		return (true);
+	return (false);
 }
