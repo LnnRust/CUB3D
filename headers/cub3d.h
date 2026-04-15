@@ -91,4 +91,7 @@ bool	parse_texture_line(char *line, t_map *map);
 bool	parse_color_line(char *line, t_map *map);
 bool	extract_rgb_code(t_map *map, char *line, int i, char code);
 bool	is_config_line(char *line);
-bool    init_is_finished(t_map *map);
+bool	init_is_finished(t_map *map);
+e_status	get_state(char *content, e_status state);
+char		**extract_map(char **content);
+bool		parse_map(t_game *game, char **av);

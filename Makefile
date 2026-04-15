@@ -6,7 +6,7 @@
 #    By: aandreo <aandreo@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/03/30 14:11:11 by aandreo           #+#    #+#              #
-#    Updated: 2026/04/10 22:40:12 by aandreo          ###   ########.fr        #
+#    Updated: 2026/04/15 14:33:37 by aandreo          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,7 +29,9 @@ SRCS		= srcs/main.c \
 			  srcs/parsing/config/parse_config.c \
 			  srcs/parsing/config/utils2.c \
 			  srcs/parsing/utils/utils.c \
+			  srcs/parsing/utils/utils2.c \
 			  srcs/parsing/utils/setters.c \
+			  srcs/parsing/parsing.c \
 
 GNL_SRCS	= libft/get_next_line.c \
 			  libft/get_next_line_utils.c
