@@ -90,6 +90,5 @@ bool	is_xpm_file(char *line);
 bool	parse_texture_line(char *line, t_map *map);
 bool	parse_color_line(char *line, t_map *map);
 bool	extract_rgb_code(t_map *map, char *line, int i, char code);
-bool	fill_ceil_color(char *line, t_map *map, int i);
-bool	fill_floor_color(char *line, t_map *map, int i);
 bool	is_config_line(char *line);
+bool    init_is_finished(t_map *map);
