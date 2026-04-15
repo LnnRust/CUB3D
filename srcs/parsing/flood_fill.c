@@ -6,7 +6,7 @@
 /*   By: aandreo <aandreo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/07 10:08:12 by aandreo           #+#    #+#             */
-/*   Updated: 2026/04/10 22:38:27 by aandreo          ###   ########.fr       */
+/*   Updated: 2026/04/15 15:02:04 by aandreo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,13 +29,15 @@ void	free_map(char **map)
 
 static bool	is_border(char **map, int x, int y)
 {
-	if(x < 0 || y < 0)
-		return true;
-	if((size_t)x >= ft_strlen(map[y]))
-		return true;
-	if(!map[y] || map[y][x] == ' ' || map[y][x] == '\t')
-		return true;
-	return false;
+	if (!map || x < 0 || y < 0)
+		return (true);
+	if (!map[y])
+		return (true);
+	if ((size_t)x >= ft_strlen(map[y]))
+		return (true);
+	if (map[y][x] == ' ' || map[y][x] == '\t')
+		return (true);
+	return (false);
 }
 
 void	flood_fill(char **map, int x, int y)
