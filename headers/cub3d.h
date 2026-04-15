@@ -81,7 +81,7 @@ void	free_map(char **map);
 int		skip_whitespaces(char *line, int i);
 int		count_doors(char **map);
 char	**copy_map(char **map);
-bool	is_map_char(char *line);
+bool	is_map_char(char line);
 char	**extract_file_content(char *map_filename);
 size_t	find_len(char *path, size_t j);
 int		get_texture_index(char *line, int i);
