@@ -6,7 +6,7 @@
 /*   By: aandreo <aandreo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/07 12:29:20 by aandreo           #+#    #+#             */
-/*   Updated: 2026/04/10 22:40:10 by aandreo          ###   ########.fr       */
+/*   Updated: 2026/04/14 23:23:26 by aandreo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,13 +76,13 @@ bool	is_xpm_file(char *line)
 	return true;
 }
 
-bool	is_map_char(char *line)
+bool	is_map_char(char line)
 {
-	if(line[0] == ' ' || line[0] == 'D'
-		|| line[0] == 'E' || line[0] == '1'
-		|| line[0] == '0' || line[0] == 'N'
-		|| line[0] == 'S' || line[0] == 'E'
-		|| line[0] == 'W' || line[0] == '2')
+	if(line == ' ' || line == 'D'
+		|| line == 'E' || line == '1'
+		|| line == '0' || line == 'N'
+		|| line == 'S' || line == 'E'
+		|| line == 'W' || line == '2')
 		return(true);
 	return (false);
 }
