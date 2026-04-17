@@ -67,6 +67,8 @@ typedef struct s_player
 /* Master struct — only what parsing needs for now */
 typedef struct s_game
 {
+	void		*mlx;
+	void		*win;
 	t_map		*map;
 	t_player	*player;
 }	t_game;

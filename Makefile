@@ -6,7 +6,7 @@
 #    By: aandreo <aandreo@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/03/30 14:11:11 by aandreo           #+#    #+#              #
-#    Updated: 2026/04/15 14:33:37 by aandreo          ###   ########.fr        #
+#    Updated: 2026/04/16 19:05:51 by aandreo          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,12 +14,16 @@ NAME		= cub3d
 
 CC			= cc
 CFLAGS		= -Wall -Wextra -Werror
-INCLUDES	= -I headers -I libft
+INCLUDES	= -I headers -I libft -I MLX42/include
 
 LIBFT_DIR	= libft
 LIBFT		= $(LIBFT_DIR)/libft.a
 
-LDFLAGS		= -L$(LIBFT_DIR) -lft
+MLX_DIR		= MLX42
+MLX_BUILD_DIR	= $(MLX_DIR)/build
+MLX			= $(MLX_BUILD_DIR)/libmlx42.a
+
+LDFLAGS		= -L$(LIBFT_DIR) -lft -L$(MLX_BUILD_DIR) -lmlx42 -ldl -lglfw -pthread -lm
 
 # ──────────────────────────── Sources ──────────────────────────── #
 
@@ -42,13 +46,17 @@ GNL_OBJS	= $(GNL_SRCS:libft/%.c=$(OBJS_DIR)/libft/%.o)
 
 # ──────────────────────────── Rules ────────────────────────────── #
 
-all: $(LIBFT) $(NAME)
+all: $(LIBFT) $(MLX) $(NAME)
 
-$(NAME): $(OBJS) $(GNL_OBJS)
+$(NAME): $(OBJS) $(GNL_OBJS) $(MLX)
 	$(CC) $(CFLAGS) $(OBJS) $(GNL_OBJS) $(LDFLAGS) -o $(NAME)
 
 $(LIBFT):
 	$(MAKE) -C $(LIBFT_DIR)
+
+$(MLX):
+	cmake -S $(MLX_DIR) -B $(MLX_BUILD_DIR)
+	cmake --build $(MLX_BUILD_DIR) -j4
 
 $(OBJS_DIR)/%.o: srcs/%.c
 	@mkdir -p $(dir $@)
