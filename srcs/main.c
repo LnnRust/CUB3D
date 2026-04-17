@@ -6,11 +6,21 @@
 /*   By: aandreo <aandreo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/30 15:01:22 by aandreo           #+#    #+#             */
-/*   Updated: 2026/04/10 23:28:44 by aandreo          ###   ########.fr       */
+/*   Updated: 2026/04/17 21:34:11 by aandreo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../headers/cub3d.h"
+# include <MLX42/MLX42.h>
+
+static void	key_hook(mlx_key_data_t keydata, void *param)
+{
+	mlx_t	*mlx;
+
+	mlx = (mlx_t *)param;
+	if (keydata.key == MLX_KEY_ESCAPE && keydata.action == MLX_PRESS)
+		mlx_close_window(mlx);
+}
 
 static void	init_tmap(t_map *map)
 {
@@ -46,6 +56,7 @@ static bool	init_game(t_game *game)
 	game->player->x = -1;
 	game->player->y = -1;
 	game->player->direction = '\0';
+	game->mlx = NULL;
 	return (true);
 }
 void free_game(t_game *game)
@@ -72,23 +83,26 @@ void free_game(t_game *game)
 
 int main(int ac, char **av)
 {
-	(void)av;
 	(void)ac;
-	char *test = "F 200,150, 20";
 	t_game *game;
+	int		status;
+
 	game = malloc(sizeof(t_game));
 	if (!game)
 		return (1);
-	if(init_game(game) == false)
+	if(!init_game(game))
 		return (1);
-	//char **test = extract_file_content(av[1]);
-	//char *tmp = get_texture_path(test, "NO");
-	//printf("%s", tmp);
-	if(!parse_color_line(test, game->map))
-		return (printf("Error"), 1);
-	printf("%d\n", game->map->floor_color[0]);
-	printf("%d\n", game->map->floor_color[1]);
-	printf("%d\n", game->map->floor_color[2]);
-	return (0);
-	return (0);
+	if(!parse_map(game, av))
+		return (1);
+	game->mlx = mlx_init(1300, 900, "Cub3d", true);
+	if(!game->mlx)
+		return (EXIT_FAILURE);
+	mlx_key_hook((mlx_t *)game->mlx, key_hook, game->mlx);
+	mlx_loop((mlx_t *)game->mlx);
+	mlx_terminate((mlx_t *)game->mlx);
+	free_game(game);
+	free(game);
+	status = EXIT_SUCCESS;
+	return (status);
 }
+
