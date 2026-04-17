@@ -70,7 +70,11 @@ bool	is_xpm_file(char *line)
 {
 	int len;
 
+	if (!line)
+		return (false);
 	len = ft_strlen(line);
+	if (len < 4)
+		return (false);
 	if(ft_strncmp(&line[len - 4], ".xpm", 4) != 0)
 		return (false);
 	return true;
