@@ -2,6 +2,7 @@
 
 #include "../libft/libft.h"
 #include "../libft/get_next_line.h"
+#include "../MLX42/include/MLX42/MLX42.h"
 
 #include <stdlib.h>
 #include <unistd.h>
@@ -46,8 +47,8 @@ typedef struct s_map
 	int			width;
 	int			height;
 	char		*tex_path[TEX_COUNT];
-	int			floor_color[3];
-	int			ceil_color[3];
+	int			floor_color[2];
+	int			ceil_color[2];
 	int			door_count;
 	t_door		*doors;
 	int			sprite_count;
@@ -57,9 +58,13 @@ typedef struct s_map
 /* Player start info — filled during parsing */
 typedef struct s_player
 {
-	int		x;
-	int		y;
+	double	x;
+	double	y;
 	char	direction;	/* N / S / E / W */
+	int		plane_x;/*fov*/
+	int		plane_y;
+	double	dirx;/*where is facing the player*/
+	double	diry;
 }	t_player;
 
 /* Master struct — only what parsing needs for now */

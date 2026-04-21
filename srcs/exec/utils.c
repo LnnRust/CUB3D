@@ -6,7 +6,13 @@
 /*   By: fbenech <fbenech@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/20 21:37:40 by fbenech           #+#    #+#             */
-/*   Updated: 2026/04/20 21:37:45 by fbenech          ###   ########.fr       */
+/*   Updated: 2026/04/21 19:01:16 by fbenech          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "exec.h"
+
+uint32_t rgb_to_color(int r, int g, int b)
+{
+	return (r << 24 | g << 16 | b << 8 | 0xFF);
+}
