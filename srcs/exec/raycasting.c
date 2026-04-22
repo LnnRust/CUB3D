@@ -6,7 +6,7 @@
 /*   By: fbenech <fbenech@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/11 21:11:09 by fbenech           #+#    #+#             */
-/*   Updated: 2026/04/22 19:48:40 by fbenech          ###   ########.fr       */
+/*   Updated: 2026/04/22 22:41:42 by fbenech          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,10 @@
 avec lequel je calcule le raydirX d'une valeur constante qui depend
 du fov (inter_ray), pourquoi pas appeler en recursif en faisait cos(n += inter_ray)*/
 
-static mlx_image_t *image;
+// static mlx_image_t *image;
 
 
-void call_render_ray(t_player *player, t_map *map)
+void call_render_ray(t_player *player, t_map *map, mlx_image_t *image)
 {
 	int		nray;
 	double	deltaX;/*je commence par le ray le plus a gauche dans l'axe de la cam*/
@@ -45,25 +45,25 @@ void call_render_ray(t_player *player, t_map *map)
 		mapY = (int)player->y;
 		if (player->direction == 'N')
 		{
-			raydirX = cos(90 - (FOV / 2) + inter_ray);
-			raydirY = sin(90 - (FOV / 2) + inter_ray);
+			raydirX = cos((90 - (FOV / 2) + inter_ray) * M_PI / 180);
+			raydirY = sin((90 - (FOV / 2) + inter_ray) * M_PI / 180);
 		}
 		else if (player->direction == 'S')
 		{
-			raydirX = cos(260 - (FOV / 2) + inter_ray);
-			raydirY = sin(260 - (FOV / 2) + inter_ray);
+			raydirX = cos((260 - (FOV / 2) + inter_ray) * M_PI / 180);
+			raydirY = sin((260 - (FOV / 2) + inter_ray) * M_PI / 180);
 		}
 		else if (player->direction == 'E')
 		{
-			raydirX = cos(0 - (FOV / 2) + inter_ray);
-			raydirY = sin(0 - (FOV / 2) + inter_ray);
+			raydirX = cos((0 - (FOV / 2) + inter_ray) * M_PI / 180);
+			raydirY = sin((0 - (FOV / 2) + inter_ray) * M_PI / 180);
 		}
 		else
 		{
-			raydirX = cos(180 - (FOV / 2) + inter_ray);
-			raydirY = sin(180 - (FOV / 2) + inter_ray);
+			raydirX = cos((180 - (FOV / 2) + inter_ray) * M_PI / 180);
+			raydirY = sin((180 - (FOV / 2) + inter_ray) * M_PI / 180);
 		}
-		inter_ray = FOV / WIDTH;
+		inter_ray += (double)FOV / WIDTH;
 		deltaX = fabs(1 / raydirX);
 		deltaY = fabs(1 / raydirY);
 		if (raydirX < 0)
@@ -101,13 +101,14 @@ void call_render_ray(t_player *player, t_map *map)
 				side = 1;
 			}
 		}
-		nray++;
 		if (side == 0)
 			perpwalldist = (sx - deltaX);
 		else
 			perpwalldist = (sy - deltaY);
 		rayheight = (int)(HEIGHT / perpwalldist);
 		draw_ray(rayheight, nray, image, map);
+		printf("nray = %d\n", nray);
+		nray++;
 	}
 }
 

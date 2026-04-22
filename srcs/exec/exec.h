@@ -6,11 +6,12 @@
 /*   By: fbenech <fbenech@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/09 23:45:52 by fbenech           #+#    #+#             */
-/*   Updated: 2026/04/21 22:02:58 by fbenech          ###   ########.fr       */
+/*   Updated: 2026/04/22 20:48:43 by fbenech          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../headers/cub3d.h"
+#include <math.h>
 #define FOV 90
 #define WIDTH 1080
 #define HEIGHT 720
@@ -37,4 +38,4 @@ void set_player(t_player **player);
 
 /*raycasting.c*/
 
-void call_render_ray(t_player *player, t_map *map);
+void call_render_ray(t_player *player, t_map *map, mlx_image_t *image);

@@ -1,5 +1,9 @@
 #pragma once
 
+#ifndef M_PI
+# define M_PI 3.14159265358979323846
+#endif
+
 #include "../libft/libft.h"
 #include "../libft/get_next_line.h"
 #include "../MLX42/include/MLX42/MLX42.h"

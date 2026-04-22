@@ -6,7 +6,7 @@
 /*   By: fbenech <fbenech@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/09 20:47:44 by fbenech           #+#    #+#             */
-/*   Updated: 2026/04/22 19:51:22 by fbenech          ###   ########.fr       */
+/*   Updated: 2026/04/22 21:28:56 by fbenech          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,14 +46,14 @@ void set_player(t_player **player)
 	}
 }
 
-static void	key_hook(mlx_key_data_t keydata, void *param)
-{
-	mlx_t	*mlx;
+// static void	key_hook(mlx_key_data_t keydata, void *param)
+// {
+// 	mlx_t	*mlx;
 
-	mlx = (mlx_t *)param;
-	if (keydata.key == MLX_KEY_ESCAPE && keydata.action == MLX_PRESS)
-		mlx_close_window(mlx);
-}
+// 	mlx = (mlx_t *)param;
+// 	if (keydata.key == MLX_KEY_ESCAPE && keydata.action == MLX_PRESS)
+// 		mlx_close_window(mlx);
+// }
 
 static void	init_tmap(t_map *map)
 {
@@ -155,6 +155,10 @@ int main(int ac, char **av)
 	player = malloc(sizeof(t_player));
 	t_map *feur;
 	feur = malloc(sizeof(t_map));
+	mlx_image_t *image;
+	image = mlx_new_image(game->mlx, WIDTH, HEIGHT);
+	if (!image || !feur || !player)
+		return (0);
 	int i = 0;
 	while (i < 3)
 		feur->ceil_color[i++] = 0;
@@ -164,11 +168,11 @@ int main(int ac, char **av)
 	feur->map = map;
 	player->direction = 'E';
 	set_player(&player);
-	call_render_ray(player, feur );
-	mlx_key_hook((mlx_t *)game->mlx, key_hook, game->mlx);
+	call_render_ray(player, feur, image);
+	// mlx_key_hook((mlx_t *)game->mlx, key_hook, game->mlx);
 	mlx_loop((mlx_t *)game->mlx);
 	mlx_terminate((mlx_t *)game->mlx);
-	// free_game(game);
+	free_game(game);
 	free(game);
 	status = EXIT_SUCCESS;
 	return (status);
