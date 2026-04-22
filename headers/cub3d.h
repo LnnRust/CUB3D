@@ -47,8 +47,8 @@ typedef struct s_map
 	int			width;
 	int			height;
 	char		*tex_path[TEX_COUNT];
-	int			floor_color[2];
-	int			ceil_color[2];
+	int			floor_color[3];
+	int			ceil_color[3];
 	int			door_count;
 	t_door		*doors;
 	int			sprite_count;
@@ -70,6 +70,8 @@ typedef struct s_player
 /* Master struct — only what parsing needs for now */
 typedef struct s_game
 {
+	void		*mlx;
+	void		*win;
 	t_map		*map;
 	t_player	*player;
 }	t_game;

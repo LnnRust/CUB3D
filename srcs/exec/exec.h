@@ -6,7 +6,7 @@
 /*   By: fbenech <fbenech@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/09 23:45:52 by fbenech           #+#    #+#             */
-/*   Updated: 2026/04/21 19:01:16 by fbenech          ###   ########.fr       */
+/*   Updated: 2026/04/21 22:02:58 by fbenech          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,3 +34,7 @@ void draw_ray(double rayheight, int n_ray, mlx_image_t *image, t_map *map);
 /*main.c*/
 
 void set_player(t_player **player);
+
+/*raycasting.c*/
+
+void call_render_ray(t_player *player, t_map *map);

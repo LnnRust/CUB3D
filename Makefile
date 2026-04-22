@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: aandreo <aandreo@student.42.fr>            +#+  +:+       +#+         #
+#    By: fbenech <fbenech@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/03/30 14:11:11 by aandreo           #+#    #+#              #
-#    Updated: 2026/04/03 22:48:50 by aandreo          ###   ########.fr        #
+#    Updated: 2026/04/22 20:07:48 by fbenech          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,6 +28,11 @@ SRCS		= srcs/main.c \
 			  srcs/parsing/parse_getters.c \
 			  srcs/parsing/flood_fill.c \
 			  srcs/parsing/parse_utils.c \
+			  srcs/exec/main.c \
+			  srcs/exec/pixels.c \
+			  srcs/exec/utils.c \
+			  srcs/exec/raycasting.c \
+
 
 GNL_SRCS	= libft/get_next_line.c \
 			  libft/get_next_line_utils.c
