@@ -6,7 +6,7 @@
 /*   By: fbenech <fbenech@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/09 20:47:44 by fbenech           #+#    #+#             */
-/*   Updated: 2026/04/22 21:28:56 by fbenech          ###   ########.fr       */
+/*   Updated: 2026/04/23 17:01:55 by fbenech          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,21 +28,29 @@ void set_player(t_player **player)
 	{
 		(*player)->dirx = 0;
 		(*player)->diry = -1;
+		(*player)->plane_x = 0.66;
+		(*player)->plane_y = 0;
 	}
 	if ((*player)->direction == 'S')
 	{
 		(*player)->dirx = 0;
 		(*player)->diry = 1;
+		(*player)->plane_x = -0.66;
+		(*player)->plane_y = 0;
 	}
 	if ((*player)->direction == 'E')
 	{
 		(*player)->dirx = 1;
 		(*player)->diry = 0;
+		(*player)->plane_x = 0;
+		(*player)->plane_y = 0.66;
 	}
 	if ((*player)->direction == 'W')
 	{
 		(*player)->dirx = -1;
 		(*player)->diry = 0;
+		(*player)->plane_x = 0;
+		(*player)->plane_y = -0.66;
 	}
 }
 
@@ -157,6 +165,7 @@ int main(int ac, char **av)
 	feur = malloc(sizeof(t_map));
 	mlx_image_t *image;
 	image = mlx_new_image(game->mlx, WIDTH, HEIGHT);
+	mlx_image_to_window(game->mlx, image, 0, 0); 
 	if (!image || !feur || !player)
 		return (0);
 	int i = 0;

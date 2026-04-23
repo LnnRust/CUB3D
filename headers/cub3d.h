@@ -65,8 +65,8 @@ typedef struct s_player
 	double	x;
 	double	y;
 	char	direction;	/* N / S / E / W */
-	int		plane_x;/*fov*/
-	int		plane_y;
+	double	plane_x;/*fov*/
+	double	plane_y;
 	double	dirx;/*where is facing the player*/
 	double	diry;
 }	t_player;

@@ -6,7 +6,7 @@
 /*   By: fbenech <fbenech@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/11 21:11:09 by fbenech           #+#    #+#             */
-/*   Updated: 2026/04/22 22:41:42 by fbenech          ###   ########.fr       */
+/*   Updated: 2026/04/23 17:02:11 by fbenech          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ void call_render_ray(t_player *player, t_map *map, mlx_image_t *image)
 	int		nray;
 	double	deltaX;/*je commence par le ray le plus a gauche dans l'axe de la cam*/
 	double	deltaY;
+	double	cameraX;
 	int		rayheight;
 	int		side;
 	int		mapX;
@@ -43,26 +44,9 @@ void call_render_ray(t_player *player, t_map *map, mlx_image_t *image)
 	{
 		mapX = (int)player->x;
 		mapY = (int)player->y;
-		if (player->direction == 'N')
-		{
-			raydirX = cos((90 - (FOV / 2) + inter_ray) * M_PI / 180);
-			raydirY = sin((90 - (FOV / 2) + inter_ray) * M_PI / 180);
-		}
-		else if (player->direction == 'S')
-		{
-			raydirX = cos((260 - (FOV / 2) + inter_ray) * M_PI / 180);
-			raydirY = sin((260 - (FOV / 2) + inter_ray) * M_PI / 180);
-		}
-		else if (player->direction == 'E')
-		{
-			raydirX = cos((0 - (FOV / 2) + inter_ray) * M_PI / 180);
-			raydirY = sin((0 - (FOV / 2) + inter_ray) * M_PI / 180);
-		}
-		else
-		{
-			raydirX = cos((180 - (FOV / 2) + inter_ray) * M_PI / 180);
-			raydirY = sin((180 - (FOV / 2) + inter_ray) * M_PI / 180);
-		}
+		cameraX = 2 * nray / WIDTH - 1;
+		raydirX = player->dirx + player->plane_x * cameraX;
+		raydirY = player->diry + player->plane_y * cameraX;
 		inter_ray += (double)FOV / WIDTH;
 		deltaX = fabs(1 / raydirX);
 		deltaY = fabs(1 / raydirY);
@@ -107,7 +91,6 @@ void call_render_ray(t_player *player, t_map *map, mlx_image_t *image)
 			perpwalldist = (sy - deltaY);
 		rayheight = (int)(HEIGHT / perpwalldist);
 		draw_ray(rayheight, nray, image, map);
-		printf("nray = %d\n", nray);
 		nray++;
 	}
 }

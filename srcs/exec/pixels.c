@@ -6,7 +6,7 @@
 /*   By: fbenech <fbenech@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/17 21:01:30 by fbenech           #+#    #+#             */
-/*   Updated: 2026/04/22 21:30:34 by fbenech          ###   ########.fr       */
+/*   Updated: 2026/04/23 17:03:29 by fbenech          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ void draw_ray(double rayheight, int n_ray, mlx_image_t *image, t_map *map)
 	int dend;
 	pxly = 0;
 	int white[3] = {255, 255, 255};
+	int idk[3] = {175, 100, 175};
 
 	dstart = -rayheight / 2 + HEIGHT / 2;
 	if (dstart < 0)
@@ -40,12 +41,12 @@ void draw_ray(double rayheight, int n_ray, mlx_image_t *image, t_map *map)
 		dend = HEIGHT - 1;
 	while (pxly < dstart && pxly < HEIGHT)
 	{
-		ft_mlx_put_pixel(image, n_ray, pxly, map->floor_color);
+		ft_mlx_put_pixel(image, n_ray, pxly, white);
 		pxly++;
 	}
 	while (pxly < dend && pxly < HEIGHT)
 	{
-		ft_mlx_put_pixel(image, n_ray, pxly, white);
+		ft_mlx_put_pixel(image, n_ray, pxly, idk);
 		pxly++;
 	}
 	while(pxly < HEIGHT)
