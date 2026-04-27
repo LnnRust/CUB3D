@@ -17,6 +17,10 @@
 # define TEX_SPRITE	5
 # define TEX_COUNT	6
 
+#ifndef M_PI
+# define M_PI 3.14159265358979323846
+#endif
+
 typedef struct s_door
 {
 	int		x;
@@ -59,9 +63,13 @@ typedef struct s_map
 /* Player start info — filled during parsing */
 typedef struct s_player
 {
-	int		x;
-	int		y;
+	double	x;
+	double	y;
 	char	direction;	/* N / S / E / W */
+	double	plane_x;/*fov*/
+	double	plane_y;
+	double	dirx;/*where is facing the player*/
+	double	diry;
 }	t_player;
 
 /* Master struct — only what parsing needs for now */

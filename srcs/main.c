@@ -6,12 +6,12 @@
 /*   By: aandreo <aandreo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/30 15:01:22 by aandreo           #+#    #+#             */
-/*   Updated: 2026/04/17 21:34:11 by aandreo          ###   ########.fr       */
+/*   Updated: 2026/04/28 00:52:10 by aandreo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../headers/cub3d.h"
-# include <MLX42/MLX42.h>
+#include "cub3d.h"
+#include "exec.h"
 
 static void	key_hook(mlx_key_data_t keydata, void *param)
 {
@@ -59,6 +59,7 @@ static bool	init_game(t_game *game)
 	game->mlx = NULL;
 	return (true);
 }
+
 void free_game(t_game *game)
 {
 	int i;
@@ -81,22 +82,81 @@ void free_game(t_game *game)
 		free(game->player);
 }
 
+void set_player(t_player **player, char **map)
+{
+	int	i;
+	int	j;
+	i = 0;
+	while(map[i])
+	{
+		j = 0;
+		while(map[i][j])
+		{
+			if(map[i][j] == 'N' || map[i][j] == 'W' || map[i][j] == 'E' || map[i][j] == 'S')
+			{
+				(*player)->x = (double)j;
+				(*player)->y = (double)i;
+				break;
+			}
+			j++;
+		}
+		i++;
+	}
+	if ((*player)->direction == 'N')
+	{
+		(*player)->dirx = 0;
+		(*player)->diry = -1;
+		(*player)->plane_x = 0.66;
+		(*player)->plane_y = 0;
+	}
+	if ((*player)->direction == 'S')
+	{
+		(*player)->dirx = 0;
+		(*player)->diry = 1;
+		(*player)->plane_x = -0.66;
+		(*player)->plane_y = 0;
+	}
+	if ((*player)->direction == 'E')
+	{
+		(*player)->dirx = 1;
+		(*player)->diry = 0;
+		(*player)->plane_x = 0;
+		(*player)->plane_y = 0.66;
+	}
+	if ((*player)->direction == 'W')
+	{
+		(*player)->dirx = -1;
+		(*player)->diry = 0;
+		(*player)->plane_x = 0;
+		(*player)->plane_y = -0.66;
+	}
+}
+
 int main(int ac, char **av)
 {
-	(void)ac;
-	t_game *game;
-	int		status;
+	t_game		*game;
+	mlx_image_t	*image;
+	int			status;
 
 	game = malloc(sizeof(t_game));
 	if (!game)
 		return (1);
 	if(!init_game(game))
-		return (1);
-	if(!parse_map(game, av))
-		return (1);
-	game->mlx = mlx_init(1300, 900, "Cub3d", true);
+		return (free(game), 1);
+	if (ac != 2)
+		return (ft_putstr_fd("Usage: ./cub3d <map.cub>\n", 2), free_game(game), free(game), 1);
+	if (!parse_map(game, av))
+		return (free_game(game), free(game), 1);
+	set_player(&game->player, game->map->map);
+	game->mlx = mlx_init(WIDTH, HEIGHT, "Cub3d", true);
 	if(!game->mlx)
-		return (EXIT_FAILURE);
+		return (free_game(game), free(game), EXIT_FAILURE);
+	image = mlx_new_image(game->mlx, WIDTH, HEIGHT);
+	if (!image)
+		return (mlx_terminate(game->mlx), free_game(game), free(game), EXIT_FAILURE);
+	if (mlx_image_to_window(game->mlx, image, 0, 0) < 0)
+		return (mlx_delete_image(game->mlx, image), mlx_terminate(game->mlx), free_game(game), free(game), EXIT_FAILURE);
+	call_render_ray(game->player, game->map, image, game->map->map);
 	mlx_key_hook((mlx_t *)game->mlx, key_hook, game->mlx);
 	mlx_loop((mlx_t *)game->mlx);
 	mlx_terminate((mlx_t *)game->mlx);
@@ -105,4 +165,5 @@ int main(int ac, char **av)
 	status = EXIT_SUCCESS;
 	return (status);
 }
+
 
