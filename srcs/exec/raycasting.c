@@ -6,7 +6,7 @@
 /*   By: fbenech <fbenech@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/11 21:11:09 by fbenech           #+#    #+#             */
-/*   Updated: 2026/04/23 17:02:11 by fbenech          ###   ########.fr       */
+/*   Updated: 2026/04/27 22:36:11 by fbenech          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ du fov (inter_ray), pourquoi pas appeler en recursif en faisait cos(n += inter_r
 // static mlx_image_t *image;
 
 
-void call_render_ray(t_player *player, t_map *map, mlx_image_t *image)
+void call_render_ray(t_player *player, t_map *map, mlx_image_t *image, char **carte)
 {
 	int		nray;
 	double	deltaX;/*je commence par le ray le plus a gauche dans l'axe de la cam*/
@@ -44,7 +44,7 @@ void call_render_ray(t_player *player, t_map *map, mlx_image_t *image)
 	{
 		mapX = (int)player->x;
 		mapY = (int)player->y;
-		cameraX = 2 * nray / WIDTH - 1;
+		cameraX = 2 * nray / (double)WIDTH - 1;
 		raydirX = player->dirx + player->plane_x * cameraX;
 		raydirY = player->diry + player->plane_y * cameraX;
 		inter_ray += (double)FOV / WIDTH;
@@ -58,21 +58,21 @@ void call_render_ray(t_player *player, t_map *map, mlx_image_t *image)
 		else
 		{
 			stepX = 1;
-			sx = ((int)player->x + 2 - player->x) * deltaX;
+			sx = ((int)player->x + 1.0 - player->x) * deltaX;
 		}
 		if (raydirY < 0)
 		{
 			stepY = -1;
-			sy = (player->y - (int)player->y) *deltaX;
+			sy = (player->y - (int)player->y) *deltaY;
 		}
 		else
 		{
 			stepY = 1;
 			sy = ((int)player->y + 1.0 - player->y) * deltaY;
 		}
-		while(map->map[mapX][mapY] == 0)
+		while(carte[mapY][mapX] != '1')
 		{
-			if (sx > sy)
+			if (sx < sy)
 			{
 				sx += deltaX;
 				mapX += stepX;
@@ -89,6 +89,8 @@ void call_render_ray(t_player *player, t_map *map, mlx_image_t *image)
 			perpwalldist = (sx - deltaX);
 		else
 			perpwalldist = (sy - deltaY);
+		if (perpwalldist <= 0)
+			perpwalldist = 0.0001;
 		rayheight = (int)(HEIGHT / perpwalldist);
 		draw_ray(rayheight, nray, image, map);
 		nray++;

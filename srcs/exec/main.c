@@ -6,7 +6,7 @@
 /*   By: fbenech <fbenech@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/09 20:47:44 by fbenech           #+#    #+#             */
-/*   Updated: 2026/04/23 17:01:55 by fbenech          ###   ########.fr       */
+/*   Updated: 2026/04/27 22:38:13 by fbenech          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,26 @@
 // 	/*fermer la window et free tout*/
 // }
 
-void set_player(t_player **player)
+void set_player(t_player **player, char **map)
 {
+	int	i;
+	int	j;
+	i = 0;
+	while(map[i])
+	{
+		j = 0;
+		while(map[i][j])
+		{
+			if(map[i][j] == 'N' || map[i][j] == 'W' || map[i][j] == 'E' || map[i][j] == 'S')
+			{
+				(*player)->x = (double)j;
+				(*player)->y = (double)i;
+				break;
+			}
+			j++;
+		}
+		i++;
+	}
 	if ((*player)->direction == 'N')
 	{
 		(*player)->dirx = 0;
@@ -130,12 +148,12 @@ int main(int ac, char **av)
 	int		status;
 	char **map = (char *[]){
 	"11111111111111111111111111111111111111",
-	"1E000000000000000000000000000000000001",
 	"10000000000000000000000000000000000001",
 	"10000000000000000000000000000000000001",
 	"10000000000000000000000000000000000001",
 	"10000000000000000000000000000000000001",
-	"10000000000000001000000000000000000001",
+	"10000000000000000000000000000000000001",
+	"100000E0000000001000000000000000000001",
 	"1000000000000000D000000000000000000001",
 	"10000000000000000100000000000000000001",
 	"10000000000000001000000000000000000001",
@@ -176,8 +194,8 @@ int main(int ac, char **av)
 		feur->floor_color[i++] = 0;
 	feur->map = map;
 	player->direction = 'E';
-	set_player(&player);
-	call_render_ray(player, feur, image);
+	set_player(&player, map);
+	call_render_ray(player, feur, image, map);
 	// mlx_key_hook((mlx_t *)game->mlx, key_hook, game->mlx);
 	mlx_loop((mlx_t *)game->mlx);
 	mlx_terminate((mlx_t *)game->mlx);
