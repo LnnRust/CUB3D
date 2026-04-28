@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aandreo <aandreo@student.42.fr>            +#+  +:+       +#+        */
+/*   By: felix <felix@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/30 15:01:22 by aandreo           #+#    #+#             */
-/*   Updated: 2026/04/28 00:52:10 by aandreo          ###   ########.fr       */
+/*   Updated: 2026/04/28 04:44:44 by felix            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,8 +94,8 @@ void set_player(t_player **player, char **map)
 		{
 			if(map[i][j] == 'N' || map[i][j] == 'W' || map[i][j] == 'E' || map[i][j] == 'S')
 			{
-				(*player)->x = (double)j;
-				(*player)->y = (double)i;
+				(*player)->x = (double)j + 0.5;
+				(*player)->y = (double)i + 0.5;
 				break;
 			}
 			j++;
