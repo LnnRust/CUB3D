@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: felix <felix@student.42.fr>                +#+  +:+       +#+        */
+/*   By: fbenech <fbenech@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/09 23:45:52 by fbenech           #+#    #+#             */
-/*   Updated: 2026/04/28 04:44:48 by felix            ###   ########.fr       */
+/*   Updated: 2026/04/28 22:35:14 by fbenech          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,39 @@
 #define WIDTH 1280
 #define HEIGHT 800
 
-/*va servir a afficher toutes les range de pixel*/
-typedef struct s_cam
+typedef struct s_ray
 {
-	int dir;/*center of view of the fov*/
-	int camx;/*value between 1 and -1*/
-	int camplane;/*width of the fov*/
-}	t_cam;
+	int		nray;
+	double	deltaX;/*je commence par le ray le plus a gauche dans l'axe de la cam*/
+	double	deltaY;
+	double	cameraX;
+	int		rayheight;
+	int		side;
+	int		mapX;
+	int		mapY;
+	int		stepX;
+	int		stepY;
+	double	raydirX;
+	double	raydirY;
+	double	sx;
+	double	sy;
+	double	perpwalldist;
+	double	inter_ray;	
+}	t_ray;
+
+typedef struct s_tex
+{
+	mlx_texture_t *north;
+	mlx_texture_t *south;
+	mlx_texture_t *east;
+	mlx_texture_t *west;
+}	t_tex;
+
+typedef struct s_dda
+{
+	t_tex *tex;
+	t_ray *ray;
+}	t_dda;
 
 /*utils.c*/
 
@@ -34,7 +60,8 @@ uint32_t rgb_to_color(int r, int g, int b);
 
 /*pixel.c*/
 
-void draw_ray(double rayheight, int n_ray, mlx_image_t *image, t_map *map);
+void render_ray(double rayheight, int n_ray, mlx_image_t *image, t_map *map);
+void init_tex(t_tex **texture, t_map *map);
 
 /*main.c*/
 

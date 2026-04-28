@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aandreo <aandreo@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fbenech <fbenech@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/11 21:11:09 by fbenech           #+#    #+#             */
-/*   Updated: 2026/04/28 00:48:22 by aandreo          ###   ########.fr       */
+/*   Updated: 2026/04/28 22:36:18 by fbenech          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,115 +21,68 @@ du fov (inter_ray), pourquoi pas appeler en recursif en faisait cos(n += inter_r
 
 void call_render_ray(t_player *player, t_map *map, mlx_image_t *image, char **carte)
 {
-	int		nray;
-	double	deltaX;/*je commence par le ray le plus a gauche dans l'axe de la cam*/
-	double	deltaY;
-	double	cameraX;
-	int		rayheight;
-	int		side;
-	int		mapX;
-	int		mapY;
-	int		stepX;
-	int		stepY;
-	double	raydirX;
-	double	raydirY;
-	double	sx;
-	double	sy;
-	double	perpwalldist;
-	double	inter_ray;
+	t_ray *ray;
+	t_tex *tex;
 
-	inter_ray = 0.0;
-	nray = 0;
-	while (nray < WIDTH)
+	init_tex(&tex, map);
+	ray = malloc(sizeof(t_ray));
+	if (!ray || !tex)
+		return ;
+	ray->inter_ray = 0.0;
+	ray->nray = 0;
+	while (ray->nray < WIDTH)
 	{
-		mapX = (int)player->x;
-		mapY = (int)player->y;
-		cameraX = 2 * nray / (double)WIDTH - 1;
-		raydirX = player->dirx + player->plane_x * cameraX;
-		raydirY = player->diry + player->plane_y * cameraX;
-		inter_ray += (double)FOV / WIDTH;
-		deltaX = fabs(1 / raydirX);
-		deltaY = fabs(1 / raydirY);
-		if (raydirX < 0)
+		ray->mapX = (int)player->x;
+		ray->mapY = (int)player->y;
+		ray->cameraX = 2 * ray->nray / (double)WIDTH - 1;
+		ray->raydirX = player->dirx + player->plane_x * ray->cameraX;
+		ray->raydirY = player->diry + player->plane_y * ray->cameraX;
+		ray->inter_ray += (double)FOV / WIDTH;
+		ray->deltaX = fabs(1 / ray->raydirX);
+		ray->deltaY = fabs(1 / ray->raydirY);
+		if (ray->raydirX < 0)
 		{
-			stepX = -1;
-			sx = (player->x - (int)player->x) * deltaX;
+			ray->stepX = -1;
+			ray->sx = (player->x - (int)player->x) * ray->deltaX;
 		}
 		else
 		{
-			stepX = 1;
-			sx = ((int)player->x + 1.0 - player->x) * deltaX;
+			ray->stepX = 1;
+			ray->sx = ((int)player->x + 1.0 - player->x) * ray->deltaX;
 		}
-		if (raydirY < 0)
+		if (ray->raydirY < 0)
 		{
-			stepY = -1;
-			sy = (player->y - (int)player->y) *deltaY;
+			ray->stepY = -1;
+			ray->sy = (player->y - (int)player->y) *ray->deltaY;
 		}
 		else
 		{
-			stepY = 1;
-			sy = ((int)player->y + 1.0 - player->y) * deltaY;
+			ray->stepY = 1;
+			ray->sy = ((int)player->y + 1.0 - player->y) * ray->deltaY;
 		}
-		while(carte[mapY][mapX] != '1')
+		while(carte[ray->mapY][ray->mapX] != '1')
 		{
-			if (sx < sy)
+			if (ray->sx < ray->sy)
 			{
-				sx += deltaX;
-				mapX += stepX;
-				side = 0;
+				ray->sx += ray->deltaX;
+				ray->mapX += ray->stepX;
+				ray->side = 0;
 			}
 			else
 			{
-				sy += deltaY;
-				mapY += stepY;
-				side = 1;
+				ray->sy += ray->deltaY;
+				ray->mapY += ray->stepY;
+				ray->side = 1;
 			}
 		}
-		if (side == 0)
-			perpwalldist = (sx - deltaX);
+		if (ray->side == 0)
+			ray->perpwalldist = (ray->sx - ray->deltaX);
 		else
-			perpwalldist = (sy - deltaY);
-		if (perpwalldist <= 0)
-			perpwalldist = 0.0001;
-		rayheight = (int)(HEIGHT / perpwalldist);
-		draw_ray(rayheight, nray, image, map);
-		nray++;
+			ray->perpwalldist = (ray->sy - ray->deltaY);
+		if (ray->perpwalldist <= 0)
+			ray->perpwalldist = 0.0001;
+		ray->rayheight = (int)(HEIGHT / ray->perpwalldist);
+		render_ray(ray->rayheight, ray->nray, image, map);
+		ray->nray++;
 	}
 }
-
-// int main(void)
-// {
-// 	char **map = (char *[]){
-// 	"11111111111111111111111111111111111111",
-// 	"1E000000000000000000000000000000000001",
-// 	"10000000000000000000000000000000000001",
-// 	"10000000000000000000000000000000000001",
-// 	"10000000000000000000000000000000000001",
-// 	"10000000000000000000000000000000000001",
-// 	"10000000000000001000000000000000000001",
-// 	"1000000000000000D000000000000000000001",
-// 	"10000000000000000100000000000000000001",
-// 	"10000000000000001000000000000000000001",
-// 	"10000000000000000000000000000000000001",
-// 	"10000000000000000000000000000000000001",
-// 	"10000000000000000000000000000000000001",
-// 	"10000000000000000000000000000000000001",
-// 	"10000000000000000000000000000000000001",
-// 	"10000000000000000000000000000000000001",
-// 	"11111111111111111111111111111111111111",
-// 	NULL
-// 	};
-// 	t_player *player;
-// 	player = malloc(sizeof(t_player));
-// 	t_map *feur;
-// 	feur = malloc(sizeof(t_map));
-// 	int i = 0;
-// 	while (i < 3)
-// 		feur->ceil_color[i++] = 0;
-// 	i = 0;
-// 	while (i < 3)
-// 		feur->floor_color[i++] = 0;
-// 	feur->map = map;
-// 	player->direction = 'E';
-// 	set_player(&player);
-// }
