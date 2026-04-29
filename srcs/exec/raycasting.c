@@ -6,7 +6,7 @@
 /*   By: fbenech <fbenech@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/11 21:11:09 by fbenech           #+#    #+#             */
-/*   Updated: 2026/04/28 22:36:18 by fbenech          ###   ########.fr       */
+/*   Updated: 2026/04/29 22:42:56 by fbenech          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,17 @@ void call_render_ray(t_player *player, t_map *map, mlx_image_t *image, char **ca
 {
 	t_ray *ray;
 	t_tex *tex;
+	t_dda *dda;
 
 	init_tex(&tex, map);
 	ray = malloc(sizeof(t_ray));
-	if (!ray || !tex)
+	dda = malloc(sizeof(t_dda));
+	if (!ray || !tex || !dda)
 		return ;
 	ray->inter_ray = 0.0;
 	ray->nray = 0;
+	dda->ray = ray;
+	dda->tex = tex;
 	while (ray->nray < WIDTH)
 	{
 		ray->mapX = (int)player->x;
@@ -82,7 +86,7 @@ void call_render_ray(t_player *player, t_map *map, mlx_image_t *image, char **ca
 		if (ray->perpwalldist <= 0)
 			ray->perpwalldist = 0.0001;
 		ray->rayheight = (int)(HEIGHT / ray->perpwalldist);
-		render_ray(ray->rayheight, ray->nray, image, map);
+		render_ray(dda, image, map, player);
 		ray->nray++;
 	}
 }

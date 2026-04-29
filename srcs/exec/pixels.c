@@ -6,7 +6,7 @@
 /*   By: fbenech <fbenech@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/17 21:01:30 by fbenech           #+#    #+#             */
-/*   Updated: 2026/04/28 23:26:41 by fbenech          ###   ########.fr       */
+/*   Updated: 2026/04/29 22:44:45 by fbenech          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,68 +24,61 @@ void ft_mlx_put_pixel(mlx_image_t *image, int x, int y, int *rgb)
 
 /*faire une fonction qui determine comment afficher le mur en fonction de la distance*/
 
-void render_ray(double rayheight, int n_ray, mlx_image_t *image, t_map *map)
-{
-	int pxly;
-	int dstart;
-	int dend;
-	pxly = 0;
-	int white[3] = {255, 255, 255};
-	int idk[3] = {175, 100, 175};
-
-	dstart = -rayheight / 2 + HEIGHT / 2;
-	if (dstart < 0)
-		dstart = 0;
-	dend = rayheight / 2 + HEIGHT / 2;
-	if (dend >= HEIGHT)
-		dend = HEIGHT - 1;
-	while (pxly < dstart && pxly < HEIGHT)
+void render_ray(t_dda *dda, mlx_image_t *image, t_map *map, t_player *player)
+{	
+	dda->ray->dstart = -dda->ray->rayheight / 2 + HEIGHT / 2;
+	if (dda->ray->dstart < 0)
+		dda->ray->dstart = 0;
+	dda->ray->dend = dda->ray->rayheight / 2 + HEIGHT / 2;
+	if (dda->ray->dend >= HEIGHT)
+		dda->ray->dend = HEIGHT - 1;
+	while (dda->ray->pxly < dda->ray->dstart && dda->ray->pxly < HEIGHT)
 	{
-		ft_mlx_put_pixel(image, n_ray, pxly, white);
-		pxly++;
+		ft_mlx_put_pixel(image, dda->ray->nray, dda->ray->pxly, map->floor_color);
+		dda->ray->pxly++;
 	}
-	while (pxly < dend && pxly < HEIGHT)
+	print_texture(player, dda->ray, dda->tex, image);
+	while(dda->ray->pxly < HEIGHT)
 	{
-		ft_mlx_put_pixel(image, n_ray, pxly, idk);
-		pxly++;
-	}
-	while(pxly < HEIGHT)
-	{
-		ft_mlx_put_pixel(image, n_ray, pxly, map->ceil_color);
-		pxly++;
+		ft_mlx_put_pixel(image, dda->ray->nray, dda->ray->pxly, map->ceil_color);
+		dda->ray->pxly++;
 	}
 }
 
-int *get_color(t_player *player, t_ray *ray, t_tex *tex)
+void print_texture(t_player *player, t_ray *ray, t_tex *tex, mlx_image_t *image)
 {
-	double	wallX;
-	int		tenX; /*horizontal location in the texture*/
-	int		texture;
+	mlx_texture_t	*texture;
+	double			texpos;
+	uint32_t		color;
+	double			wallx;
+	double			step;
+	int				texx; /*horizontal location in the texture*/
+	int				texy;
+	int				y;
 
 	if (ray->side == 0)
-		wallX = player->y + ray->perpwalldist * ray->raydirY;
+		wallx = player->y + ray->perpwalldist * ray->raydirY;
 	else
-		wallX = player->x + ray->perpwalldist *ray->raydirX;
-	wallX -= floor(wallX);
+		wallx = player->x + ray->perpwalldist *ray->raydirX;
+	wallx -= floor(wallx);
 	if (ray->side == 0 && ray->raydirX > 0)
-	{
-		texture = TEX_WE;
-		tenX = (int)(wallX * tex->west->width);
-	}
+		texture = tex->west;
 	else if (ray->side == 0 && ray->raydirX < 0)
-	{
-		texture = TEX_EA;
-		tenX = (int)(wallX * tex->east->width);
-	}
+		texture = tex->east;
 	else if (ray->side == 1 && ray->raydirY > 0)
-	{
-		texture = TEX_NO;
-		tenX = (int)(wallX * tex->north->width);
-	}
+		texture = tex->north;
 	else
+		texture = tex->south;
+	texx = (int)(wallx * texture->height);
+	step = (double)texture->height / ray->rayheight;
+	texpos = (ray->dstart - HEIGHT / 2 + ray->rayheight / 2) * step;
+	y = ray->dstart;
+	while (y < ray->dend)
 	{
-		texture = TEX_SO;
-		tenX = (int)(wallX * tex->south->width);
+		texy = (int)texpos & 63;
+		color = ((uint32_t)texture->pixels[texture->width * texy + texx]);
+		mlx_put_pixel(image, ray->nray, ray->pxly, color);
+		texpos += step;
 	}
 }
 

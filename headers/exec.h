@@ -6,7 +6,7 @@
 /*   By: fbenech <fbenech@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/09 23:45:52 by fbenech           #+#    #+#             */
-/*   Updated: 2026/04/28 22:35:14 by fbenech          ###   ########.fr       */
+/*   Updated: 2026/04/29 22:25:23 by fbenech          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 typedef struct s_ray
 {
 	int		nray;
+	int		pxly;
 	double	deltaX;/*je commence par le ray le plus a gauche dans l'axe de la cam*/
 	double	deltaY;
 	double	cameraX;
@@ -32,6 +33,8 @@ typedef struct s_ray
 	int		mapY;
 	int		stepX;
 	int		stepY;
+	int		dstart;
+	int		dend;
 	double	raydirX;
 	double	raydirY;
 	double	sx;
@@ -60,8 +63,9 @@ uint32_t rgb_to_color(int r, int g, int b);
 
 /*pixel.c*/
 
-void render_ray(double rayheight, int n_ray, mlx_image_t *image, t_map *map);
+void render_ray(t_dda *dda, mlx_image_t *image, t_map *map, t_player *player);
 void init_tex(t_tex **texture, t_map *map);
+void print_texture(t_player *player, t_ray *ray, t_tex *tex, mlx_image_t *image);
 
 /*main.c*/
 
