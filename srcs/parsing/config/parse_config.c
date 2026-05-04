@@ -6,7 +6,7 @@
 /*   By: aandreo <aandreo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/14 13:32:48 by aandreo           #+#    #+#             */
-/*   Updated: 2026/04/13 05:20:33 by aandreo          ###   ########.fr       */
+/*   Updated: 2026/05/04 18:07:26 by aandreo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static void	trim_path(char *line)
 	}
 }
 
-//check for any parsing error, and copy the ./file/file.xpm path into the map->tex_path
+//check for any parsing error, and copy the ./file/file.png path into the map->tex_path
 bool	parse_texture_line(char *line, t_map *map)
 {
 	int i;
@@ -55,7 +55,7 @@ bool	parse_texture_line(char *line, t_map *map)
 	if(!path)
 		return (false);
 	trim_path(path);
-	if(access(path, R_OK) != 0 || !is_xpm_file(path))
+	if(access(path, R_OK) != 0 || !is_png_file(path))
 	{
 		free(path);
 		return (ft_putstr_fd("Error: invalid texture file\n", 2), false);

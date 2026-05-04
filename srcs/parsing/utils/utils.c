@@ -6,7 +6,7 @@
 /*   By: aandreo <aandreo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/07 12:29:20 by aandreo           #+#    #+#             */
-/*   Updated: 2026/04/14 23:23:26 by aandreo          ###   ########.fr       */
+/*   Updated: 2026/05/04 18:07:40 by aandreo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ char	**copy_map(char **map)
 	return (tmp);
 }
 
-bool	is_xpm_file(char *line)
+bool	is_png_file(char *line)
 {
 	int len;
 
@@ -75,7 +75,7 @@ bool	is_xpm_file(char *line)
 	len = ft_strlen(line);
 	if (len < 4)
 		return (false);
-	if(ft_strncmp(&line[len - 4], ".xpm", 4) != 0)
+	if(ft_strncmp(&line[len - 4], ".png", 4) != 0)
 		return (false);
 	return true;
 }

@@ -2,6 +2,7 @@
 
 #include "../libft/libft.h"
 #include "../libft/get_next_line.h"
+#include "../MLX42/include/MLX42/MLX42.h"
 
 #include <stdlib.h>
 #include <unistd.h>
@@ -81,6 +82,12 @@ typedef struct s_game
 	t_player	*player;
 }	t_game;
 
+typedef struct s_minimap {
+	mlx_image_t *img;
+	int         tile_size;   // taille d'une case en pixels sur la minimap
+	int         offset_x;    // position X de la minimap sur la fenêtre
+	int         offset_y;    // position Y de la minimap sur la fenêtre
+}   t_minimap;
 
 void	flood_fill(char **map, int x, int y);
 bool	check_floodfill(char **map);
@@ -96,7 +103,7 @@ char	**extract_file_content(char *map_filename);
 size_t	find_len(char *path, size_t j);
 int		get_texture_index(char *line, int i);
 char	*get_texture_path(char **map, char *texture);
-bool	is_xpm_file(char *line);
+bool	is_png_file(char *line);
 bool	parse_texture_line(char *line, t_map *map);
 bool	parse_color_line(char *line, t_map *map);
 bool	extract_rgb_code(t_map *map, char *line, int i, char code);
