@@ -6,7 +6,7 @@
 /*   By: fbenech <fbenech@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/17 21:01:30 by fbenech           #+#    #+#             */
-/*   Updated: 2026/04/29 22:44:45 by fbenech          ###   ########.fr       */
+/*   Updated: 2026/05/04 20:46:15 by fbenech          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,8 @@ void ft_mlx_put_pixel(mlx_image_t *image, int x, int y, int *rgb)
 /*faire une fonction qui determine comment afficher le mur en fonction de la distance*/
 
 void render_ray(t_dda *dda, mlx_image_t *image, t_map *map, t_player *player)
-{	
+{
+	dda->ray->pxly = 0;
 	dda->ray->dstart = -dda->ray->rayheight / 2 + HEIGHT / 2;
 	if (dda->ray->dstart < 0)
 		dda->ray->dstart = 0;
@@ -38,6 +39,7 @@ void render_ray(t_dda *dda, mlx_image_t *image, t_map *map, t_player *player)
 		dda->ray->pxly++;
 	}
 	print_texture(player, dda->ray, dda->tex, image);
+	dda->ray->pxly = dda->ray->dend;
 	while(dda->ray->pxly < HEIGHT)
 	{
 		ft_mlx_put_pixel(image, dda->ray->nray, dda->ray->pxly, map->ceil_color);
@@ -77,8 +79,10 @@ void print_texture(t_player *player, t_ray *ray, t_tex *tex, mlx_image_t *image)
 	{
 		texy = (int)texpos & 63;
 		color = ((uint32_t)texture->pixels[texture->width * texy + texx]);
+		printf("color = %X\n", color);
 		mlx_put_pixel(image, ray->nray, ray->pxly, color);
 		texpos += step;
+		y++;
 	}
 }
 

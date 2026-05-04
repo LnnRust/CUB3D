@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   setters.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aandreo <aandreo@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fbenech <fbenech@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/10 01:30:52 by aandreo           #+#    #+#             */
-/*   Updated: 2026/04/13 17:19:57 by aandreo          ###   ########.fr       */
+/*   Updated: 2026/05/04 19:46:52 by fbenech          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,8 @@ void	set_playerpos(char **map, t_game *game)
 				|| map[i][j] == 'E' || map[i][j] == 'W')
 			{
 				game->player->direction = map[i][j];
-				game->player->x = j;
-				game->player->y = i;
+				game->player->x = (double)j + 0.5;
+				game->player->y = (double)i + 0.5;
 				return ;
 			}
 			j++;
