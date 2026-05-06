@@ -6,7 +6,7 @@
 /*   By: fbenech <fbenech@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/17 21:01:30 by fbenech           #+#    #+#             */
-/*   Updated: 2026/05/04 20:46:15 by fbenech          ###   ########.fr       */
+/*   Updated: 2026/05/06 03:09:12 by fbenech          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ void print_texture(t_player *player, t_ray *ray, t_tex *tex, mlx_image_t *image)
 {
 	mlx_texture_t	*texture;
 	double			texpos;
+	uint32_t		*pixels;
 	uint32_t		color;
 	double			wallx;
 	double			step;
@@ -71,17 +72,18 @@ void print_texture(t_player *player, t_ray *ray, t_tex *tex, mlx_image_t *image)
 		texture = tex->north;
 	else
 		texture = tex->south;
-	texx = (int)(wallx * texture->height);
+	texx = (int)(wallx * texture->width);
 	step = (double)texture->height / ray->rayheight;
 	texpos = (ray->dstart - HEIGHT / 2 + ray->rayheight / 2) * step;
 	y = ray->dstart;
 	while (y < ray->dend)
 	{
-		texy = (int)texpos & 63;
-		color = ((uint32_t)texture->pixels[texture->width * texy + texx]);
-		printf("color = %X\n", color);
+		texy = (int)texpos % texture->height;
+		pixels = (uint32_t *)texture->pixels;
+		color = pixels[texture->width * texy + texx];
 		mlx_put_pixel(image, ray->nray, ray->pxly, color);
 		texpos += step;
+		ray->pxly++;
 		y++;
 	}
 }
