@@ -80,6 +80,7 @@ typedef struct s_game
 	void		*win;
 	t_map		*map;
 	t_player	*player;
+	mlx_image_t	**image;
 }	t_game;
 
 typedef struct s_minimap {

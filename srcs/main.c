@@ -6,7 +6,7 @@
 /*   By: fbenech <fbenech@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/30 15:01:22 by aandreo           #+#    #+#             */
-/*   Updated: 2026/05/06 07:27:50 by fbenech          ###   ########.fr       */
+/*   Updated: 2026/05/07 04:57:15 by fbenech          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,17 +21,18 @@ static void	key_hook(mlx_key_data_t keydata, void *param)
 	if (keydata.key == MLX_KEY_ESCAPE && keydata.action == MLX_PRESS)
 		mlx_close_window(game->mlx);
 	else if (keydata.key == MLX_KEY_W)
-		update_player_pos(0.0, 0.5, game->player);
+		update_player_pos(0.0, 0.25, &game->player, game->map->map);
 	else if (keydata.key == MLX_KEY_A)
-		update_player_pos(-0.5, 0.0, game->player);
+		update_player_pos(-0.25, 0.0, &game->player, game->map->map);
 	else if (keydata.key == MLX_KEY_S)
-		update_player_pos(0.0, -0.5, game->player);
+		update_player_pos(0.0, -0.25, &game->player, game->map->map);
 	else if (keydata.key == MLX_KEY_D)
-		update_player_pos(0.5, 0.0, game->player);
+		update_player_pos(0.25, 0.0, &game->player, game->map->map);
 	else if (keydata.key == MLX_KEY_LEFT)
-		/*appel de fonction pour tourner la camera a gauche*/
+		update_player_plane(0.25, &game->player);
 	else if (keydata.key == MLX_KEY_RIGHT)
-		/*appel de fonction pour tourner la camera a droite*/
+		update_player_plane(-0.25, &game->player);
+	call_render_ray(game->player, game->map, (*game->image), game->map->map);
 }
 
 static void	init_tmap(t_map *map)
@@ -168,6 +169,7 @@ int main(int ac, char **av)
 		return (mlx_terminate(game->mlx), free_game(game), free(game), EXIT_FAILURE);
 	if (mlx_image_to_window(game->mlx, image, 0, 0) < 0)
 		return (mlx_delete_image(game->mlx, image), mlx_terminate(game->mlx), free_game(game), free(game), EXIT_FAILURE);
+	game->image = &image;
 	call_render_ray(game->player, game->map, image, game->map->map);
 	mlx_key_hook(game->mlx, key_hook, game);
 	mlx_loop((mlx_t *)game->mlx);

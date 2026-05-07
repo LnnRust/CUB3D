@@ -6,23 +6,35 @@
 /*   By: fbenech <fbenech@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/06 06:47:30 by fbenech           #+#    #+#             */
-/*   Updated: 2026/05/06 08:27:45 by fbenech          ###   ########.fr       */
+/*   Updated: 2026/05/07 04:53:30 by fbenech          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "cub3d.h"
 #include "exec.h"
 
-void update_player_pos(double x, double y, t_player **player)
+void update_player_pos(double dx, double dy, t_player **player, char **map)
 {
-	(*player)->x += x;
-	(*player)->y += y;
+	double  newx;
+	double  newy;
+	
+	newx = (*player)->x + dx;
+	newy = (*player)->y + dy;
+	if (map[(int)(*player)->y][(int)newx] != '1')
+		(*player)->x = newx;
+	if (map[(int)newy][(int)(*player)->x] != '1')
+		(*player)->y = newy;
 }
 
 void update_player_plane(double rspeed, t_player **player)
 {
 	double olddirx;
+	double odlplanex;
 
 	olddirx = (*player)->dirx;
 	(*player)->dirx = (*player)->dirx * cos(-rspeed) - (*player)->diry * sin(-rspeed);
 	(*player)->diry = olddirx * sin(-rspeed) + (*player)->diry * cos(-rspeed);
+	odlplanex = (*player)->plane_x;
+	(*player)->plane_x = (*player)->plane_x * cos(-rspeed) - (*player)->plane_y * sin(-rspeed);
+	(*player)->plane_y = odlplanex * sin(-rspeed) + (*player)->plane_y * cos(-rspeed);
 }

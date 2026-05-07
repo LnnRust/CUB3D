@@ -6,7 +6,7 @@
 /*   By: fbenech <fbenech@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/09 23:45:52 by fbenech           #+#    #+#             */
-/*   Updated: 2026/05/06 07:00:36 by fbenech          ###   ########.fr       */
+/*   Updated: 2026/05/07 04:53:50 by fbenech          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,4 +77,5 @@ void call_render_ray(t_player *player, t_map *map, mlx_image_t *image, char **ca
 
 /*key_hook.c*/
 
-void update_player_pos(double x, double y, t_player **player);
+void update_player_pos(double dx, double dy, t_player **player, char **map);
+void update_player_plane(double rspeed, t_player **player);

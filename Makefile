@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: aandreo <aandreo@student.42.fr>            +#+  +:+       +#+         #
+#    By: fbenech <fbenech@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/03/30 14:11:11 by aandreo           #+#    #+#              #
-#    Updated: 2026/04/28 00:48:22 by aandreo          ###   ########.fr        #
+#    Updated: 2026/05/07 04:11:22 by fbenech          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,6 +39,7 @@ SRCS		= srcs/main.c \
 			  srcs/exec/raycasting.c \
 			  srcs/exec/pixels.c \
 			  srcs/exec/utils.c \
+			  srcs/exec/key_hook.c \
 
 GNL_SRCS	= libft/get_next_line.c \
 			  libft/get_next_line_utils.c
