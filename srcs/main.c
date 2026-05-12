@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fbenech <fbenech@student.42.fr>            +#+  +:+       +#+        */
+/*   By: felix <felix@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/30 15:01:22 by aandreo           #+#    #+#             */
-/*   Updated: 2026/05/07 04:57:15 by fbenech          ###   ########.fr       */
+/*   Updated: 2026/05/12 10:45:51 by felix            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,18 +16,19 @@
 static void	key_hook(mlx_key_data_t keydata, void *param)
 {
 	t_game	*game;
+	double ms = 0.1;
 
 	game = (t_game *)param;
 	if (keydata.key == MLX_KEY_ESCAPE && keydata.action == MLX_PRESS)
 		mlx_close_window(game->mlx);
 	else if (keydata.key == MLX_KEY_W)
-		update_player_pos(0.0, 0.25, &game->player, game->map->map);
-	else if (keydata.key == MLX_KEY_A)
-		update_player_pos(-0.25, 0.0, &game->player, game->map->map);
+	    update_player_pos(game->player->dirx * ms, game->player->diry * ms, &game->player, game->map->map);
 	else if (keydata.key == MLX_KEY_S)
-		update_player_pos(0.0, -0.25, &game->player, game->map->map);
+	    update_player_pos(-game->player->dirx * ms, -game->player->diry * ms, &game->player, game->map->map);
+	else if (keydata.key == MLX_KEY_A)
+	    update_player_pos(-game->player->plane_x * ms, -game->player->plane_y * ms, &game->player, game->map->map);
 	else if (keydata.key == MLX_KEY_D)
-		update_player_pos(0.25, 0.0, &game->player, game->map->map);
+    update_player_pos(game->player->plane_x * ms, game->player->plane_y * ms, &game->player, game->map->map);
 	else if (keydata.key == MLX_KEY_LEFT)
 		update_player_plane(0.25, &game->player);
 	else if (keydata.key == MLX_KEY_RIGHT)
