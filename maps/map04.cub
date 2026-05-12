@@ -2,13 +2,14 @@ NO ./textures/north.png
 SO ./textures/south.png
 WE ./textures/west.png
 EA ./textures/east.png
+DO ./textures/door.png
 
 F 255,255,0
 C 0,0,128
 
 11111111111
 10000000001
-10111110101
+1011111D101
 10100010101
 10101110101
 101N0000101

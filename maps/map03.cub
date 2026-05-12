@@ -1,5 +1,5 @@
-F 100,200,50
-C 10,10,10
+F 10,20,5
+C 100,100,100
 
 EA ./textures/east.png
 NO ./textures/north.png

@@ -6,7 +6,7 @@
 /*   By: aandreo <aandreo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/07 10:07:24 by aandreo           #+#    #+#             */
-/*   Updated: 2026/04/15 15:00:21 by aandreo          ###   ########.fr       */
+/*   Updated: 2026/05/13 01:08:01 by aandreo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,7 @@ e_status get_state(char *content, e_status state)
 			|| ft_strncmp(&content[i], "SO", 2) == 0
 			|| ft_strncmp(&content[i], "WE", 2) == 0
 			|| ft_strncmp(&content[i], "EA", 2) == 0
+			|| ft_strncmp(&content[i], "DO", 2) == 0
 			|| content[i] == 'F' || content[i] == 'C')
 	{
 		if (state == IN_MAP || state == MAP_ENDED)
@@ -211,6 +212,11 @@ bool	parse_map(t_game *game, char **av)
 		return (ft_putstr_fd("Error: Flood fill error\n", 2), free_map(mapcpy), false);
 	free_map(mapcpy);
 	set_doorpos(game->map->map, game);
+	if(game->map->door_count > 0)
+	{
+		if(game->map->tex_path[TEX_DOOR] == NULL)
+			return (false);
+	}
 	return (true);
 }
 

@@ -3,26 +3,29 @@
 /*                                                        :::      ::::::::   */
 /*   key_hook.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: felix <felix@student.42.fr>                +#+  +:+       +#+        */
+/*   By: aandreo <aandreo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/06 06:47:30 by fbenech           #+#    #+#             */
-/*   Updated: 2026/05/12 10:41:34 by felix            ###   ########.fr       */
+/*   Updated: 2026/05/13 01:57:53 by aandreo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 #include "exec.h"
 
+// added D check -> make player get stuck if trying to cross a door not opened
 void update_player_pos(double dx, double dy, t_player **player, char **map)
 {
 	double  newx;
 	double  newy;
-	
+
 	newx = (*player)->x + dx;
 	newy = (*player)->y + dy;
-	if (map[(int)(*player)->y][(int)newx] != '1')
+	if (map[(int)(*player)->y][(int)newx] != '1'
+		&& map[(int)(*player)->y][(int)newx] != 'D')
 		(*player)->x = newx;
-	if (map[(int)newy][(int)(*player)->x] != '1')
+	if (map[(int)newy][(int)(*player)->x] != '1'
+		&& map[(int)(*player)->x][(int)newx] != 'D')
 		(*player)->y = newy;
 }
 

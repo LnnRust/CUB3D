@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fbenech <fbenech@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aandreo <aandreo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/11 21:11:09 by fbenech           #+#    #+#             */
-/*   Updated: 2026/05/04 18:31:18 by fbenech          ###   ########.fr       */
+/*   Updated: 2026/05/13 01:29:15 by aandreo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ void call_render_ray(t_player *player, t_map *map, mlx_image_t *image, char **ca
 			ray->stepY = 1;
 			ray->sy = ((int)player->y + 1.0 - player->y) * ray->deltaY;
 		}
-		while(carte[ray->mapY][ray->mapX] != '1')
+		while(carte[ray->mapY][ray->mapX] != '1' && carte[ray->mapY][ray->mapX] != 'D')
 		{
 			if (ray->sx < ray->sy)
 			{
@@ -79,6 +79,7 @@ void call_render_ray(t_player *player, t_map *map, mlx_image_t *image, char **ca
 				ray->side = 1;
 			}
 		}
+		ray->tile_hit = carte[ray->mapY][ray->mapX];
 		if (ray->side == 0)
 			ray->perpwalldist = (ray->sx - ray->deltaX);
 		else

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pixels.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fbenech <fbenech@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aandreo <aandreo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/17 21:01:30 by fbenech           #+#    #+#             */
-/*   Updated: 2026/05/06 03:09:12 by fbenech          ###   ########.fr       */
+/*   Updated: 2026/05/13 01:31:18 by aandreo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,7 @@ void print_texture(t_player *player, t_ray *ray, t_tex *tex, mlx_image_t *image)
 	}
 }
 
+// added door init
 void	init_tex(t_tex **texture, t_map *map)
 {
 	(*texture) = malloc(sizeof(t_tex));
@@ -97,5 +98,7 @@ void	init_tex(t_tex **texture, t_map *map)
 	(*texture)->south = mlx_load_png(map->tex_path[TEX_SO]);
 	(*texture)->east = mlx_load_png(map->tex_path[TEX_EA]);
 	(*texture)->west = mlx_load_png(map->tex_path[TEX_WE]);
+	if(map->tex_path[TEX_DOOR] != NULL)
+		(*texture)->door = mlx_load_png(map->tex_path[TEX_DOOR]);
 }
 

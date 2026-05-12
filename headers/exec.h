@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: felix <felix@student.42.fr>                +#+  +:+       +#+        */
+/*   By: aandreo <aandreo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/09 23:45:52 by fbenech           #+#    #+#             */
-/*   Updated: 2026/05/12 10:41:52 by felix            ###   ########.fr       */
+/*   Updated: 2026/05/13 01:25:58 by aandreo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 
 typedef struct s_ray
 {
+	char	tile_hit; // retiens ce qu il a touche pour savoir si c est un mur ou une porte
 	int		nray;
 	int		pxly;
 	double	deltaX;/*je commence par le ray le plus a gauche dans l'axe de la cam*/
@@ -40,7 +41,7 @@ typedef struct s_ray
 	double	sx;
 	double	sy;
 	double	perpwalldist;
-	double	inter_ray;	
+	double	inter_ray;
 }	t_ray;
 
 typedef struct s_tex
@@ -49,6 +50,7 @@ typedef struct s_tex
 	mlx_texture_t *south;
 	mlx_texture_t *east;
 	mlx_texture_t *west;
+	mlx_texture_t *door;
 }	t_tex;
 
 typedef struct s_dda

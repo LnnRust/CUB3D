@@ -6,7 +6,7 @@
 /*   By: aandreo <aandreo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/10 01:33:16 by aandreo           #+#    #+#             */
-/*   Updated: 2026/04/14 16:22:37 by aandreo          ###   ########.fr       */
+/*   Updated: 2026/05/13 00:57:00 by aandreo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ int	get_texture_index(char *line, int i)
 		return (TEX_WE);
 	if (strncmp(&line[i], "EA", 2) == 0)
 		return (TEX_EA);
+	if (strncmp(&line[i], "DO", 2) == 0)
+		return (TEX_DOOR);
 	return (-1);
 }
 
@@ -63,7 +65,8 @@ bool	is_config_line(char *line)
 	if ((ft_strncmp(&line[i], "NO", 2) == 0
 			|| ft_strncmp(&line[i], "SO", 2) == 0
 			|| ft_strncmp(&line[i], "WE", 2) == 0
-			|| ft_strncmp(&line[i], "EA", 2) == 0)
+			|| ft_strncmp(&line[i], "EA", 2) == 0
+			|| ft_strncmp(&line[i], "DO", 2) == 0)
 		&& (line[i + 2] == ' ' || line[i + 2] == '\t'))
 		return (true);
 	if ((line[i] == 'F' || line[i] == 'C')
