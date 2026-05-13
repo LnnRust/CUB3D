@@ -3,37 +3,64 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: felix <felix@student.42.fr>                +#+  +:+       +#+        */
+/*   By: fbenech <fbenech@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/30 15:01:22 by aandreo           #+#    #+#             */
-/*   Updated: 2026/05/12 10:45:51 by felix            ###   ########.fr       */
+/*   Updated: 2026/05/13 20:28:18 by fbenech          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 #include "exec.h"
 
-static void	key_hook(mlx_key_data_t keydata, void *param)
-{
-	t_game	*game;
-	double ms = 0.1;
+// static void	key_hook(mlx_key_data_t keydata, void *param)
+// {
+// 	t_game	*game;
+// 	double ms = 0.1;
 
-	game = (t_game *)param;
-	if (keydata.key == MLX_KEY_ESCAPE && keydata.action == MLX_PRESS)
-		mlx_close_window(game->mlx);
-	else if (keydata.key == MLX_KEY_W)
-	    update_player_pos(game->player->dirx * ms, game->player->diry * ms, &game->player, game->map->map);
-	else if (keydata.key == MLX_KEY_S)
-	    update_player_pos(-game->player->dirx * ms, -game->player->diry * ms, &game->player, game->map->map);
-	else if (keydata.key == MLX_KEY_A)
-	    update_player_pos(-game->player->plane_x * ms, -game->player->plane_y * ms, &game->player, game->map->map);
-	else if (keydata.key == MLX_KEY_D)
-    update_player_pos(game->player->plane_x * ms, game->player->plane_y * ms, &game->player, game->map->map);
-	else if (keydata.key == MLX_KEY_LEFT)
-		update_player_plane(0.25, &game->player);
-	else if (keydata.key == MLX_KEY_RIGHT)
-		update_player_plane(-0.25, &game->player);
-	call_render_ray(game->player, game->map, (*game->image), game->map->map);
+// 	game = (t_game *)param;
+// 	if (keydata.key == MLX_KEY_ESCAPE && keydata.action == MLX_PRESS)
+// 		mlx_close_window(game->mlx);
+// 	else if (keydata.key == MLX_KEY_W)
+// 	    update_player_pos(game->player->dirx * ms, game->player->diry * ms, &game->player, game->map->map);
+// 	else if (keydata.key == MLX_KEY_S)
+// 	    update_player_pos(-game->player->dirx * ms, -game->player->diry * ms, &game->player, game->map->map);
+// 	else if (keydata.key == MLX_KEY_A)
+// 	    update_player_pos(-game->player->plane_x * ms, -game->player->plane_y * ms, &game->player, game->map->map);
+// 	else if (keydata.key == MLX_KEY_D)
+//     update_player_pos(game->player->plane_x * ms, game->player->plane_y * ms, &game->player, game->map->map);
+// 	else if (keydata.key == MLX_KEY_LEFT)
+// 		update_player_plane(0.25, &game->player);
+// 	else if (keydata.key == MLX_KEY_RIGHT)
+// 		update_player_plane(-0.25, &game->player);
+// 	call_render_ray(game->player, game->map, (*game->image), game->map->map);
+// }
+
+static void game_loop(void *param)
+{
+    t_game *game;
+    double  ms = 0.8 * 0.16; 
+
+    game = (t_game *)param;
+    if (mlx_is_key_down(game->mlx, MLX_KEY_ESCAPE))
+        mlx_close_window(game->mlx);
+    if (mlx_is_key_down(game->mlx, MLX_KEY_W))
+        update_player_pos(game->player->dirx * ms, game->player->diry * ms,
+            &game->player, game->map->map);
+    if (mlx_is_key_down(game->mlx, MLX_KEY_S))
+        update_player_pos(-game->player->dirx * ms, -game->player->diry * ms,
+            &game->player, game->map->map);
+    if (mlx_is_key_down(game->mlx, MLX_KEY_A))
+        update_player_pos(-game->player->plane_x * ms, -game->player->plane_y * ms,
+            &game->player, game->map->map);
+    if (mlx_is_key_down(game->mlx, MLX_KEY_D))
+        update_player_pos(game->player->plane_x * ms, game->player->plane_y * ms,
+            &game->player, game->map->map);
+    if (mlx_is_key_down(game->mlx, MLX_KEY_LEFT))
+        update_player_plane(0.08, &game->player);
+    if (mlx_is_key_down(game->mlx, MLX_KEY_RIGHT))
+        update_player_plane(-0.08, &game->player);
+    call_render_ray(game->player, game->map, (*game->image), game->map->map);
 }
 
 static void	init_tmap(t_map *map)
@@ -172,8 +199,10 @@ int main(int ac, char **av)
 		return (mlx_delete_image(game->mlx, image), mlx_terminate(game->mlx), free_game(game), free(game), EXIT_FAILURE);
 	game->image = &image;
 	call_render_ray(game->player, game->map, image, game->map->map);
-	mlx_key_hook(game->mlx, key_hook, game);
-	mlx_loop((mlx_t *)game->mlx);
+	// mlx_key_hook(game->mlx, key_hook, game);
+	// mlx_loop((mlx_t *)game->mlx);
+	mlx_loop_hook(game->mlx, game_loop, game);
+	mlx_loop(game->mlx);
 	mlx_terminate((mlx_t *)game->mlx);
 	free_game(game);
 	free(game);
