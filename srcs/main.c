@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fbenech <fbenech@student.42.fr>            +#+  +:+       +#+        */
+/*   By: felix <felix@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/30 15:01:22 by aandreo           #+#    #+#             */
-/*   Updated: 2026/05/13 20:28:18 by fbenech          ###   ########.fr       */
+/*   Updated: 2026/05/13 23:14:23 by felix            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ static void game_loop(void *param)
         update_player_plane(0.08, &game->player);
     if (mlx_is_key_down(game->mlx, MLX_KEY_RIGHT))
         update_player_plane(-0.08, &game->player);
-    call_render_ray(game->player, game->map, (*game->image), game->map->map);
+    call_render_ray(game->player, game->map, (*game->image));
 }
 
 static void	init_tmap(t_map *map)
@@ -198,7 +198,7 @@ int main(int ac, char **av)
 	if (mlx_image_to_window(game->mlx, image, 0, 0) < 0)
 		return (mlx_delete_image(game->mlx, image), mlx_terminate(game->mlx), free_game(game), free(game), EXIT_FAILURE);
 	game->image = &image;
-	call_render_ray(game->player, game->map, image, game->map->map);
+	call_render_ray(game->player, game->map, image);
 	// mlx_key_hook(game->mlx, key_hook, game);
 	// mlx_loop((mlx_t *)game->mlx);
 	mlx_loop_hook(game->mlx, game_loop, game);

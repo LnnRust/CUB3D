@@ -6,7 +6,7 @@
 /*   By: felix <felix@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/09 23:45:52 by fbenech           #+#    #+#             */
-/*   Updated: 2026/05/12 10:41:52 by felix            ###   ########.fr       */
+/*   Updated: 2026/05/13 23:14:10 by felix            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ void set_player(t_player **player, char **map);
 
 /*raycasting.c*/
 
-void call_render_ray(t_player *player, t_map *map, mlx_image_t *image, char **carte);
+void call_render_ray(t_player *player, t_map *map, mlx_image_t *image);
 
 /*key_hook.c*/
 

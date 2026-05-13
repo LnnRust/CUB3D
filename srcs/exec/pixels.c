@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   pixels.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fbenech <fbenech@student.42.fr>            +#+  +:+       +#+        */
+/*   By: felix <felix@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/17 21:01:30 by fbenech           #+#    #+#             */
-/*   Updated: 2026/05/13 20:16:05 by fbenech          ###   ########.fr       */
+/*   Updated: 2026/05/13 23:18:11 by felix            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
 
-void ft_mlx_put_pixel(mlx_image_t *image, int x, int y, int *rgb)
+void	ft_mlx_put_pixel(mlx_image_t *image, int x, int y, int *rgb)
 {
 	uint32_t color;
 
@@ -24,7 +24,7 @@ void ft_mlx_put_pixel(mlx_image_t *image, int x, int y, int *rgb)
 
 /*faire une fonction qui determine comment afficher le mur en fonction de la distance*/
 
-void render_ray(t_dda *dda, mlx_image_t *image, t_map *map, t_player *player)
+void	render_ray(t_dda *dda, mlx_image_t *image, t_map *map, t_player *player)
 {
 	dda->ray->pxly = 0;
 	dda->ray->dstart = -dda->ray->rayheight / 2 + HEIGHT / 2;
@@ -47,7 +47,7 @@ void render_ray(t_dda *dda, mlx_image_t *image, t_map *map, t_player *player)
 	}
 }
 
-void print_texture(t_player *player, t_ray *ray, t_tex *tex, mlx_image_t *image)
+void	print_texture(t_player *player, t_ray *ray, t_tex *tex, mlx_image_t *image)
 {
 	mlx_texture_t	*texture;
 	double			texpos;
@@ -90,9 +90,6 @@ void print_texture(t_player *player, t_ray *ray, t_tex *tex, mlx_image_t *image)
 
 void	init_tex(t_tex **texture, t_map *map)
 {
-	(*texture) = malloc(sizeof(t_tex));
-	if (!(*texture))
-		return ;
 	(*texture)->north = mlx_load_png(map->tex_path[TEX_NO]);
 	(*texture)->south = mlx_load_png(map->tex_path[TEX_SO]);
 	(*texture)->east = mlx_load_png(map->tex_path[TEX_EA]);
