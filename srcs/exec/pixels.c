@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   pixels.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: felix <felix@student.42.fr>                +#+  +:+       +#+        */
+/*   By: fbenech <fbenech@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/17 21:01:30 by fbenech           #+#    #+#             */
-/*   Updated: 2026/05/13 23:18:11 by felix            ###   ########.fr       */
+/*   Updated: 2026/05/14 22:41:03 by fbenech          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "exec.h"
+#include "cub3d.h"
 
 void	ft_mlx_put_pixel(mlx_image_t *image, int x, int y, int *rgb)
 {

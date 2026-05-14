@@ -22,6 +22,47 @@
 # define M_PI 3.14159265358979323846
 #endif
 
+#define FOV 90
+#define WIDTH 1280
+#define HEIGHT 800
+
+typedef struct s_ray
+{
+	int		nray;
+	int		pxly;
+	double	deltaX;/*je commence par le ray le plus a gauche dans l'axe de la cam*/
+	double	deltaY;
+	double	cameraX;
+	int		rayheight;
+	int		side;
+	int		mapX;
+	int		mapY;
+	int		stepX;
+	int		stepY;
+	int		dstart;
+	int		dend;
+	double	raydirX;
+	double	raydirY;
+	double	sx;
+	double	sy;
+	double	perpwalldist;
+	double	inter_ray;	
+}	t_ray;
+
+typedef struct s_tex
+{
+	mlx_texture_t *north;
+	mlx_texture_t *south;
+	mlx_texture_t *east;
+	mlx_texture_t *west;
+}	t_tex;
+
+typedef struct s_dda
+{
+	t_tex *tex;
+	t_ray *ray;
+}	t_dda;
+
 typedef struct s_door
 {
 	int		x;
@@ -79,37 +120,63 @@ typedef struct s_game
 	void		*mlx;
 	void		*win;
 	t_map		*map;
+	t_tex		*tex;
 	t_player	*player;
 	mlx_image_t	**image;
 }	t_game;
 
-typedef struct s_minimap {
+typedef struct s_minimap
+{
 	mlx_image_t *img;
 	int         tile_size;   // taille d'une case en pixels sur la minimap
 	int         offset_x;    // position X de la minimap sur la fenêtre
 	int         offset_y;    // position Y de la minimap sur la fenêtre
-}   t_minimap;
+}	t_minimap;
 
-void	flood_fill(char **map, int x, int y);
-bool	check_floodfill(char **map);
-void	set_playerpos(char **map, t_game *game);
-void	set_doorpos(char **map, t_game *game);
-void 	free_game(t_game *game);
-void	free_map(char **map);
-int		skip_whitespaces(char *line, int i);
-int		count_doors(char **map);
-char	**copy_map(char **map);
-bool	is_map_char(char line);
-char	**extract_file_content(char *map_filename);
-size_t	find_len(char *path, size_t j);
-int		get_texture_index(char *line, int i);
-char	*get_texture_path(char **map, char *texture);
-bool	is_png_file(char *line);
-bool	parse_texture_line(char *line, t_map *map);
-bool	parse_color_line(char *line, t_map *map);
-bool	extract_rgb_code(t_map *map, char *line, int i, char code);
-bool	is_config_line(char *line);
-bool	init_is_finished(t_map *map);
+void		flood_fill(char **map, int x, int y);
+bool		check_floodfill(char **map);
+void		set_playerpos(char **map, t_game *game);
+void		set_doorpos(char **map, t_game *game);
+void 		free_game(t_game *game);
+void		free_map(char **map);
+int			skip_whitespaces(char *line, int i);
+int			count_doors(char **map);
+char		**copy_map(char **map);
+bool		is_map_char(char line);
+char		**extract_file_content(char *map_filename);
+size_t		find_len(char *path, size_t j);
+int			get_texture_index(char *line, int i);
+char		*get_texture_path(char **map, char *texture);
+bool		is_png_file(char *line);
+bool		parse_texture_line(char *line, t_map *map);
+bool		parse_color_line(char *line, t_map *map);
+bool		extract_rgb_code(t_map *map, char *line, int i, char code);
+bool		is_config_line(char *line);
+bool		init_is_finished(t_map *map);
 e_status	get_state(char *content, e_status state);
 char		**extract_map(char **content);
 bool		parse_map(t_game *game, char **av);
+
+/*utils.c*/
+
+uint32_t	rgb_to_color(int r, int g, int b);
+void		free_textures(t_tex *texture);
+
+/*pixel.c*/
+
+void		render_ray(t_dda *dda, mlx_image_t *image, t_map *map, t_player *player);
+void		init_tex(t_tex **texture, t_map *map);
+void		print_texture(t_player *player, t_ray *ray, t_tex *tex, mlx_image_t *image);
+
+/*main.c*/
+
+void		set_player(t_player **player, char **map);
+
+/*raycasting.c*/
+
+void	call_render_ray(t_player *player, t_map *map, mlx_image_t *image, t_game *game);
+
+/*key_hook.c*/
+
+void		update_player_pos(double dx, double dy, t_player **player, char **map);
+void		update_player_plane(double rspeed, t_player **player);

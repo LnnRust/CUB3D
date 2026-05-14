@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: felix <felix@student.42.fr>                +#+  +:+       +#+        */
+/*   By: fbenech <fbenech@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/11 21:11:09 by fbenech           #+#    #+#             */
-/*   Updated: 2026/05/13 23:17:50 by felix            ###   ########.fr       */
+/*   Updated: 2026/05/14 22:41:23 by fbenech          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "exec.h"
+#include "cub3d.h"
 
 /*l'idee c'est que je parte du ray le plus a gauche et que je decale l'angle
 avec lequel je calcule le raydirX d'une valeur constante qui depend
@@ -53,20 +53,16 @@ static void	def_ray_and_step(t_ray **ray, t_player *player)
 	}
 }
 
-static void init_stuf(t_tex **tex, t_map *map, t_ray **ray, t_dda **dda)
+static void	init_stuf(t_ray **ray, t_dda **dda, t_tex *tex)
 {
-	(*tex) = malloc(sizeof(t_tex));
-	if (!(*tex))
-		return ;
-	init_tex(tex, map);
 	(*ray) = malloc(sizeof(t_ray));
 	(*dda) = malloc(sizeof(t_dda));
-	if (!(*ray) || !tex || !(*dda))
+	(*dda)->tex = tex;
+	if (!(*ray) || !(*dda) || !(*dda)->tex)
 		return ;
 	(*ray)->inter_ray = 0.0;
 	(*ray)->nray = 0;
 	(*dda)->ray = (*ray);
-	(*dda)->tex = (*tex);
 }
 
 static void	while_loop(t_map *map, t_ray **ray)
@@ -88,13 +84,13 @@ static void	while_loop(t_map *map, t_ray **ray)
 	}
 }
 
-void call_render_ray(t_player *player, t_map *map, mlx_image_t *image)
+void	call_render_ray(t_player *player, t_map *map, mlx_image_t *image, t_game *game)
 {
 	t_ray *ray;
-	t_tex *tex;
 	t_dda *dda;
 
-	init_stuf(&tex, map, &ray, &dda);
+	ft_memset(image->pixels, 0, image->width * image->height * sizeof(uint32_t));
+	init_stuf(&ray, &dda, game->tex);
 	while (ray->nray < WIDTH)
 	{
 		def_ray(&ray, player);
@@ -111,6 +107,5 @@ void call_render_ray(t_player *player, t_map *map, mlx_image_t *image)
 		ray->nray++;
 	}
 	free(ray);
-	free(tex);
 	free(dda);
 }

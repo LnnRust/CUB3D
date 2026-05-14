@@ -3,43 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: felix <felix@student.42.fr>                +#+  +:+       +#+        */
+/*   By: fbenech <fbenech@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/30 15:01:22 by aandreo           #+#    #+#             */
-/*   Updated: 2026/05/13 23:14:23 by felix            ###   ########.fr       */
+/*   Updated: 2026/05/14 22:44:19 by fbenech          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
 #include "exec.h"
-
-// static void	key_hook(mlx_key_data_t keydata, void *param)
-// {
-// 	t_game	*game;
-// 	double ms = 0.1;
-
-// 	game = (t_game *)param;
-// 	if (keydata.key == MLX_KEY_ESCAPE && keydata.action == MLX_PRESS)
-// 		mlx_close_window(game->mlx);
-// 	else if (keydata.key == MLX_KEY_W)
-// 	    update_player_pos(game->player->dirx * ms, game->player->diry * ms, &game->player, game->map->map);
-// 	else if (keydata.key == MLX_KEY_S)
-// 	    update_player_pos(-game->player->dirx * ms, -game->player->diry * ms, &game->player, game->map->map);
-// 	else if (keydata.key == MLX_KEY_A)
-// 	    update_player_pos(-game->player->plane_x * ms, -game->player->plane_y * ms, &game->player, game->map->map);
-// 	else if (keydata.key == MLX_KEY_D)
-//     update_player_pos(game->player->plane_x * ms, game->player->plane_y * ms, &game->player, game->map->map);
-// 	else if (keydata.key == MLX_KEY_LEFT)
-// 		update_player_plane(0.25, &game->player);
-// 	else if (keydata.key == MLX_KEY_RIGHT)
-// 		update_player_plane(-0.25, &game->player);
-// 	call_render_ray(game->player, game->map, (*game->image), game->map->map);
-// }
+#include "cub3d.h"
 
 static void game_loop(void *param)
 {
     t_game *game;
-    double  ms = 0.8 * 0.16; 
+    double  ms = 0.3 * 0.16; 
 
     game = (t_game *)param;
     if (mlx_is_key_down(game->mlx, MLX_KEY_ESCAPE))
@@ -57,10 +34,10 @@ static void game_loop(void *param)
         update_player_pos(game->player->plane_x * ms, game->player->plane_y * ms,
             &game->player, game->map->map);
     if (mlx_is_key_down(game->mlx, MLX_KEY_LEFT))
-        update_player_plane(0.08, &game->player);
+        update_player_plane(0.04, &game->player);
     if (mlx_is_key_down(game->mlx, MLX_KEY_RIGHT))
-        update_player_plane(-0.08, &game->player);
-    call_render_ray(game->player, game->map, (*game->image));
+        update_player_plane(-0.04, &game->player);
+    call_render_ray(game->player, game->map, (*game->image), game);
 }
 
 static void	init_tmap(t_map *map)
@@ -175,6 +152,7 @@ void set_player(t_player **player, char **map)
 
 int main(int ac, char **av)
 {
+	t_tex		*tex;
 	t_game		*game;
 	mlx_image_t	*image;
 	int			status;
@@ -198,12 +176,16 @@ int main(int ac, char **av)
 	if (mlx_image_to_window(game->mlx, image, 0, 0) < 0)
 		return (mlx_delete_image(game->mlx, image), mlx_terminate(game->mlx), free_game(game), free(game), EXIT_FAILURE);
 	game->image = &image;
-	call_render_ray(game->player, game->map, image);
-	// mlx_key_hook(game->mlx, key_hook, game);
-	// mlx_loop((mlx_t *)game->mlx);
+	tex = malloc(sizeof(t_tex));
+	if (!tex)
+		return (mlx_delete_image(game->mlx, image), mlx_terminate(game->mlx), free_game(game), free(game), EXIT_FAILURE);
+	init_tex(&tex, game->map);
+	game->tex = tex;
+	call_render_ray(game->player, game->map, image, game);
 	mlx_loop_hook(game->mlx, game_loop, game);
 	mlx_loop(game->mlx);
 	mlx_terminate((mlx_t *)game->mlx);
+	free_textures(tex);
 	free_game(game);
 	free(game);
 	status = EXIT_SUCCESS;

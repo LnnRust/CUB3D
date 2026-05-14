@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   key_hook.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: felix <felix@student.42.fr>                +#+  +:+       +#+        */
+/*   By: fbenech <fbenech@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/06 06:47:30 by fbenech           #+#    #+#             */
-/*   Updated: 2026/05/12 10:41:34 by felix            ###   ########.fr       */
+/*   Updated: 2026/05/14 22:04:45 by fbenech          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-#include "exec.h"
 
 void update_player_pos(double dx, double dy, t_player **player, char **map)
 {
